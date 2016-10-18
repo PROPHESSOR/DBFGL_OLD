@@ -152,11 +152,11 @@
       $mdSidenav('left').toggle();
     };
 
-        //#TODO doc
+    //#TODO doc
     $scope.hasEngine = function() {
-      return $scope.config.active.gzdoom || $scope.config.active.zandronum ||
-                    $scope.config.active.zdoom || $scope.config.active.doom64ex ||
-                    $scope.config.active.prboomp || $scope.config.active.doomretro;
+      return _.filter($scope.config.active, function(item) {
+        return item === true;
+      }).length > 0;
     };
 
   /**
@@ -489,14 +489,12 @@
        */
         $scope.config = angular.copy($PARENT.config);
 
-        $scope.checkActives = function() {
-          _.filter($scope.config.active, function(item) {
-            return item === true;
-          }).length > 0;
-        };
-
         $scope.openConfig = function() {
           nwService.getShell().showItemInFolder(nwService.buildPath(['config.json'], true));
+        };
+
+        $scope.hasEngine = function() {
+          $PARENT.hasEngine();
         };
 
         //TODO: docs

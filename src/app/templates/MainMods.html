@@ -45,15 +45,15 @@ $(window).on('resize', function(){
                     <label class="filterlabel" style="color: white;font-weight: normal;opacity:0;">Filter</label>
                     <input ng-model="searchterm" id="filterinput">
                 </md-input-container>
-          
+
                 </div>
             </md-toolbar>
 
                 <md-content layout-padding class="slimscroll-mods">
-                
+
                 <md-list>
                 <md-list-item class="md-2-line repeat-animation init-animation" ng-repeat="mod in filtered = (mods | filter:searchterm | filter:{type:typefilter}) track by $index" ng-click="selectWad(mod)">
-                
+
                 <div class="md-avatar {{mod.type}} searchable" ng-click="lookupScreenshots($event, mod)"><div class="modtype">{{mod.type}}</div></div>
                 <div class="md-list-item-text">
                     <h3>{{ mod.name }}</h3>
@@ -107,33 +107,33 @@ $(window).on('resize', function(){
             {{screenshotsTitle}}
             <span flex></span>
             <i class="mdi mdi-close" ng-click="screenshots = null" style="cursor:pointer;"> <md-tooltip>Hide Panel</md-tooltip> </i>
-            </div>                            
+            </div>
             </md-toolbar>
                 <md-content layout-padding class="slimscroll-mods">
 
                     <div class="screenshot" ng-repeat="item in screenshots">
                         <div class="screenlabel">{{item.name}}</div>
-                        <img ng-src="{{item.pic}}" width="100%">                        
-                    </div>                
-                    
+                        <img ng-src="{{item.pic}}" width="100%">
+                    </div>
+
                     <div class="screenshot-nof" ng-show="screenshots !== null && screenshots.length === 0 && lookupLoad === false">
                     <h2>Sorry</h2>
                     <p>Cant find any Screenshots</p>
                     <md-button class="md-accent" ng-click="openScreenshots(screenshotsTitle)">Provide Screenshots</md-button>
-                    
+
                     </div>
-                    
+
                 <div ng-show="lookupLoad" class="screenshot-nof">
                     <h2>Searching</h2>
                     <p>Searching for Screenshots</p>
-<br />  
+<br />
                     <div layout="row" layout-sm="column" layout-align="space-around">
                             <md-progress-circular class="md-accent" md-mode="indeterminate"></md-progress-circular>
-                    </div>                     
+                    </div>
                     </div>
                 </md-content>
                 </div>
-            </div>        
+            </div>
 
             <md-button aria-label="play" class="md-fab special-fab" style="position: absolute; right: 25px; bottom: 15px; z-index:3;" ng-click="showGameSelection()" ng-show="hasEngine()">
                 <i class="mdi mdi-play"></i>
