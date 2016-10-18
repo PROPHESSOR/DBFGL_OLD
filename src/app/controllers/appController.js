@@ -488,6 +488,7 @@
        * @type {Object}
        */
         $scope.config = angular.copy($PARENT.config);
+        $scope.Boolean = Boolean;
 
         $scope.openConfig = function() {
           nwService.getShell().showItemInFolder(nwService.buildPath(['config.json'], true));

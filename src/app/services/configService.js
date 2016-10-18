@@ -13,6 +13,8 @@
 
     service.saveConfig = function(obj) {
       var toastDelay = 1500;
+      // TODO - Check Object properties for Boolean String to Boolean conversion
+      // FU Angular ...
 
       nwService.writeJSON(obj, 'config.json', true).then(function() {
         $mdToast.show(
