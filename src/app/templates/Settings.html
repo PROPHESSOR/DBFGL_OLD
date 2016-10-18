@@ -19,7 +19,7 @@
 						<div flex>
 							<import-choose label="Import Config" ng-model="importConfig"></import-choose>
 						</div>
-					</div>			
+					</div>
 			</fieldset>
 
 				<fieldset>
@@ -28,7 +28,7 @@
 						<div flex>
 							<md-input-container>
 								<label>Favourite Engine</label>
-				  				<md-select ng-model="config.misc.preselectedengine" placeholder="Favourite Engine" ng-disabled="modlist.length === 0">
+				  				<md-select ng-model="config.misc.preselectedengine" placeholder="Favourite Engine" ng-disabled="checkActiveEngines()">
 									<md-option ng-repeat="(key,val) in config.engines" ng-show="config.active[key] === true" value="{{key}}">{{key}}</md-option>
 								</md-select>
 							</md-input-container>
@@ -128,7 +128,7 @@
 					</div>
 				</fieldset>
 				<!-- -->
-				
+
 					<div class="settings-cb-wrapper">
 						<md-checkbox ng-model="config.active.doomrpg" aria-label="DoomRPG" class="settings-cb" ng-change="doomrpgCheckbox(config.active.doomrpg)">
 							<p class="settings-cb-label">DoomRPG</p>

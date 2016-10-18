@@ -489,6 +489,12 @@
        */
         $scope.config = angular.copy($PARENT.config);
 
+        $scope.checkActives = function() {
+          _.filter($scope.config.active, function(item) {
+            return item === true;
+          }).length > 0;
+        };
+
         $scope.openConfig = function() {
           nwService.getShell().showItemInFolder(nwService.buildPath(['config.json'], true));
         };
