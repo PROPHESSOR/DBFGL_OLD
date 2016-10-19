@@ -5,6 +5,26 @@
     var service = {};
     service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildPath(['config.json']), true));
 
+    function sanitize(obj) {
+      return _.mapObject(obj, function(item) {
+        if (typeof item === 'string') {
+          switch (item) {
+          case 'true':
+            return Boolean(true);
+
+          case 'false':
+            return Boolean(false);
+
+          default:
+            return item;
+          }
+
+        } else {
+          return item;
+        }
+      });
+    }
+
     service.importConfig = function(obj) {
       service.saveConfig(
         _.extend(DEFAULTCONFIG, obj)
@@ -13,10 +33,8 @@
 
     service.saveConfig = function(obj) {
       var toastDelay = 1500;
-      // TODO - Check Object properties for Boolean String to Boolean conversion
-      // FU Angular ...
 
-      nwService.writeJSON(obj, 'config.json', true).then(function() {
+      nwService.writeJSON(sanitize(obj), 'config.json', true).then(function() {
         $mdToast.show(
             $mdToast.simple().content('Saved configuration - SSGL restarts ...').position('bottom').hideDelay(toastDelay)
         );
