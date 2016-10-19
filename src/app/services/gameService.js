@@ -74,7 +74,7 @@
 
       var params = ['-iwad', $rootScope.config.iwadpath + opt.iwad];
 
-            // For Doom64EX you need an extra soundfile
+      // For Doom64EX you need an extra soundfile
       if (opt.engine === 'doom64ex') {
         params = params.concat(['-setvars'], ['s_soundfont', $rootScope.config.misc.doom64exsound]);
       }
