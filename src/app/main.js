@@ -21,6 +21,11 @@ var app = angular.module('ssgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
 
     $urlRouterProvider.otherwise('/');
 
+    $stateProvider.state('/settings', {
+      url: '/settings',
+      templateUrl: 'app/templates/NewSettings.html'
+    });
+
     $stateProvider.state('/', {
       url: '/',
       templateUrl: 'app/templates/MainMods.html'
