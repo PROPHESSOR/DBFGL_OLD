@@ -6,11 +6,11 @@
         }
 
         #app {
-            transition: all 0.26s ease-out;  
+            transition: all 0.26s ease-out;
             color: white;
             opacity: 0;
         }
-     
+
         #app.show {
             opacity:1;
         }
@@ -21,11 +21,11 @@
 
         * {
             -webkit-user-select: none;  /* Chrome all / Safari all */
-            user-select: none; 
+            user-select: none;
         }
 
         /* Dropdown whitefocus fix */
-        md-option:focus {            
+        md-option:focus {
             background-color: transparent !important;
         }
 
@@ -33,7 +33,7 @@
             color: #677e89;
             font-size: 25px !important;
         }
-                       
+
         .customAboutContainer img {
             border-radius: 100%;
             width: 120px;
@@ -49,15 +49,15 @@
         }
 
         .browserlink:hover {
-            color: #FF9675;            
+            color: #FF9675;
         }
 
         *:focus {
             outline:none;
-        }    
+        }
 
         .special-fab {
-            height: 60px !important; 
+            height: 60px !important;
             width: 60px !important;
             background: url('ssgl.png');
             background-size: cover;
@@ -68,24 +68,24 @@
 
         .special-fab i {
             font-size: 30px;
-            margin-top: 15px; 
+            margin-top: 15px;
             opacity: 0;
             transition: all 0.25s ease-out;
             transform: scale(0);
-            text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);            
+            text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
         }
-    
+
         .special-fab:hover > i {
             opacity: 1;
             transform: scale(1);
-        }   
+        }
 
         .disabled {
             opacity: 0.3;
             cursor: default !important;
         }
 
-        .btn-sort {            
+        .btn-sort {
             cursor: pointer;
             color: white;
             border-radius: 100%;
@@ -96,11 +96,11 @@
         .btn-sort:hover {
             background-color: rgba(158, 158, 158, 0.4);
         }
-        
+
         md-bottom-sheet .md-subheader .md-subheader-inner {
             padding: 0 !important;
-        }   
-        
+        }
+
         .gameholder {
             border-radius: 100%;
             width: 70px;
@@ -134,7 +134,7 @@
         .gameholder .tint i {
             font-size: 30px;
             margin-top: 20px;
-            color:#78909c;            
+            color:#78909c;
         }
 
         .gameholder:hover > .tint {
@@ -160,23 +160,23 @@
         }
 
         md-bottom-sheet img {
-            
+
             width: 80px !important;
             height: 80px !important;
         }
-        
+
         md-bottom-sheet.md-grid md-list-item .md-grid-item-content {
-            width: 70px !important;            
-        }    
+            width: 70px !important;
+        }
 
          md-bottom-sheet.md-grid md-list-item {
             padding: 5px;
         }
-       
+
         md-bottom-sheet md-list-item:hover {
             background-color: transparent;
         }
-        
+
         md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
             color: white;
         }
@@ -192,7 +192,7 @@
         .md-whiteframe-z2.dark {
             background-color: #424242 !important;
         }
-        
+
         .dark md-list md-list-item i {
             cursor: pointer;
             color: white;
@@ -212,17 +212,17 @@
         }
 
         .custom-check.ng-hide {
-            transform: scale(0);            
+            transform: scale(0);
             opacity:0;
         }
-        
+
 .repeat-animation.ng-enter,
 .repeat-animation.ng-leave,
-.repeat-animation.ng-move {  
-  transition: all 0.26s ease-out;  
+.repeat-animation.ng-move {
+  transition: all 0.26s ease-out;
 }
 .repeat-animation.ng-enter {
-    transform: translateX(-100px);    
+    transform: translateX(-100px);
   opacity: 0;
 }
 .repeat-animation.ng-enter.ng-enter-active {
@@ -293,10 +293,13 @@ legend {
     font-size: 16px;
 }
 
-.md-avatar {    
-    box-shadow: 0px 0px 0px 3px #555;    
+.md-avatar {
+    box-shadow: 0px 0px 0px 3px #555;
     transition: box-shadow 0.25s ease-in;
-    cursor: help;
+}
+
+.md-avatar.searchable {
+    cursor:help;
 }
 
 .md-avatar:hover {
@@ -317,7 +320,7 @@ legend {
 
 .md-avatar > .modtype {
     display:block;
-    margin-top: 2px; 
+    margin-top: 2px;
     text-align:center;
     font-size: 13px;
 }
@@ -334,7 +337,7 @@ legend {
     margin-bottom: 10px;
 }
 
-.screenshot > .screenlabel {    
+.screenshot > .screenlabel {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -349,13 +352,13 @@ legend {
 }
 
 .settings-fieldset {
-    transition: all 0.35s ease-in-out;  
+    transition: all 0.35s ease-in-out;
     opacity: 1;
     overflow: hidden;
 }
 
 .settings-fieldset.ng-hide {
-    transform: translateY(-100px);    
+    transform: translateY(-100px);
     opacity: 0;
 }
 

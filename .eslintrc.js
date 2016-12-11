@@ -7,7 +7,8 @@ module.exports = {
     "globals": {
         "app": true,
         "angular": true,
-        "_": true
+        "_": true,
+        "$": true
     },
 
     "extends": "eslint:recommended",
@@ -15,7 +16,7 @@ module.exports = {
 
         "no-console": [
             "error", { allow: ["log", "warn", "error"] }
-        ], 
+        ],
         "indent": [
             "error",
             2
