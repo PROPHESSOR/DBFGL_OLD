@@ -1,29 +1,134 @@
-<div style="width: 90%; margin: 0 auto;">
-<!--  do this in css .. -->
-<br />
+<script type="text/javascript">
+//#TODO make this global ? (resize)
+var fixHeight = function() {
+  var mainHeight = $('body').height();
+  var ToolbarHeight = $('md-toolbar.layout-row').height();
+  $('.slimScrollDiv, .slimScrollDiv > div').css('height', mainHeight - ToolbarHeight);
+};
+
+var setupScrollies = function() {
+  $('.slimscroll').slimScroll({
+    position: 'right',
+    height: 'auto',
+    railVisible: true,
+    alwaysVisible: true,
+    color: '#78909c',
+    wheelStep: 7,
+    zIndex: 5
+  });
+};
+
+$(document).ready(function(){
+  $.when(setupScrollies()).then(fixHeight);
+});
+
+$(window).on('resize', function(){
+  $.when(setupScrollies()).then(fixHeight);
+});
+</script>
   <!-- Controller -->
-  <div ng-controller="settingsController">
-    <div layout="row">
+  <div ng-controller="settingsController" >
+    <div layout="row" style="height: 100%;">
       <div flex="30">
         <md-list>
-          <md-list-item class="md-2-line" ng-repeat="t in somelist">
 
-          <div class="md-avatar {{mod.type}}">
-            <div class="modtype">{{mod.type}}</div>
+        <md-list-item class="md-2-line" ng-click="addSourcePort()">
+
+          <div class="md-avatar">
+            <div class="modtype">
+              <i class="mdi mdi-plus"></i>
+            </div>
           </div>
 
           <div class="md-list-item-text">
-              <h3>{{ t.name }}</h3>
+              <h3>Add</h3>
+              <p>Add new Item</p>
+          </div>
+          </md-list-item>
+
+          <md-list-item
+            class="md-2-line"
+            ng-repeat="sourceport in sourceports track by $index"
+            ng-click="selectSourcePort(sourceport)">
+
+          <div
+            class="md-avatar"
+            ng-click="delete($event, $index)"
+          >
+            <div class="modtype">
+              <i class="mdi mdi-delete"></i>
+
+            </div>
           </div>
 
-          <i class="mdi mdi-checkbox-marked-circle-outline custom-check" style="font-size: 25px;color: #ff5722;" ng-show="t.active"></i>
+          <div class="md-list-item-text">
+              <h3>{{ sourceport.name }}</h3>
+              <p>{{ sourceport.kind }}</p>
+          </div>
           </md-list-item>
+
         </md-list>
 
       </div>
       <div flex="70">
-      right
-      </div>
+        <div class="slimscroll" style="padding:20px;">
+        <ng-form>
+          <fieldset>
+
+            <md-input-container>
+              <label>Source Port Name</label>
+              <input type="text" ng-model="selected.name">
+            </md-input-container>
+
+            <file-choose label="Source Port Path" ng-model="selected.path"></file-choose>
+            <dir-choose label="Source Port Savegame Directory:" ng-model="selected.saves"></dir-choose>
+
+          </fieldset>
+
+          <fieldset>
+
+          <md-input-container>
+            <label>Parameter iwad:</label>
+            <input type="text" ng-model="selected.cliParams.iwad">
+          </md-input-container>
+
+          <md-input-container>
+            <label>Parameter loadgame:</label>
+            <input type="text" ng-model="selected.cliParams.loadgame">
+          </md-input-container>
+
+          <md-input-container>
+            <label>Parameter file (wad):</label>
+            <input type="text" ng-model="selected.cliParams.file">
+          </md-input-container>
+
+          <md-input-container>
+            <label>Parameter deh:</label>
+            <input type="text" ng-model="selected.cliParams.deh">
+          </md-input-container>
+
+          <md-input-container>
+            <label>Parameter savedir:</label>
+            <input type="text" ng-model="selected.cliParams.savedir">
+          </md-input-container>
+
+          </fieldset>
+          <div style="text-align:right">
+            <md-button
+              class="md-primary md-raised">
+              Cancel
+            </md-button>
+
+            <md-button
+              class="md-accent md-raised"
+              ng-click="save()">
+              Save
+            </md-button>
+
+          </div>
+          <br /><br />
+        </ng-form>
+        </div>
+    </div>
     </div>
   </div>
-</div>
