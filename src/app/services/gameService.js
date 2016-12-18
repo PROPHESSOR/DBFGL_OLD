@@ -108,7 +108,7 @@
       }
 
       if (dehs.length > 0) {
-        params = params.concat([opt.engine.cliParams.deh], wads);
+        params = params.concat([opt.engine.cliParams.deh], dehs);
       }
 
       params = params.concat([opt.engine.cliParams.savedir], $rootScope.config.savepaths[opt.engine] + modselectedService.getListname());
