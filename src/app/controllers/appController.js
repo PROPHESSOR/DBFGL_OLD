@@ -154,9 +154,7 @@
 
     //#TODO doc
     $scope.hasEngine = function() {
-      return _.filter($scope.config.active, function(item) {
-        return item === true;
-      }).length > 0;
+      return $scope.sourceports.length > 0;
     };
 
   /**

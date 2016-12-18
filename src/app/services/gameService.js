@@ -80,8 +80,6 @@
       }
 
       params = params.concat([opt.engine.cliParams.savedir], opt.engine.saves + modselectedService.getListname());
-
-      console.log(params);
       return params;
     }
 
@@ -114,14 +112,6 @@
       }
     };
 
-        /**
-         * Starts Oblige Mapbuilder as childprocess in the background
-         * When Oblige is finished - startDoom with the map parameter
-         *
-         * @method startOblige
-         * @for gameService
-         * @param  {Object} iwad, config, engine,save
-         */
     service.startOblige = function(opt) {
 
       $mdDialog.show({
