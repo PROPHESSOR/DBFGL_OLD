@@ -247,7 +247,7 @@
        * @default false
        */
         $scope.useoblige = false;
-
+        $scope.selectedEngine = null;
         iwadService.getIWADS($PARENT.config.iwadpath).then(function(iwads) {
         /**
          * @property iwads
@@ -263,6 +263,9 @@
        */
         $scope.config = $PARENT.config;
 
+        $scope.selectEngine = function(engine) {
+          $scope.selectedEngine = engine;
+        };
       /**
        * Starts a game via the clicked index
        *
@@ -272,13 +275,13 @@
        * @param  {String}  engine What engine is used
        * @param  $event
        */
-        $scope.startGame = function($index, engine, $event) {
+        $scope.startGame = function($index, $event) {
 
           if ($scope.useoblige === false) {
             gameService.startDoom({
               iwad: $scope.iwads[$index].file,
               map: false,
-              engine: engine,
+              engine: $scope.selectedEngine,
               dialog: null,
               save: false
             });
@@ -286,7 +289,7 @@
             $mdBottomSheet.hide();
 
           } else {
-            $scope.startGameOblige($event, $index, engine);
+            $scope.startGameOblige($event, $index, $scope.selectedEngine);
           }
         };
 

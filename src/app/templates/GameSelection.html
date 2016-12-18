@@ -1,21 +1,9 @@
 <md-bottom-sheet class="md-grid" style="background-color: #424242; border-color: #424242;">
   <md-tabs md-dynamic-height md-no-pagination>
-    <md-tab label="GZDOOM" md-active="config.misc.preselectedengine === 'gzdoom'" md-on-select="engine='gzdoom'" ng-disabled="!config.active.gzdoom"></md-tab>
-    
-    <md-tab label="ZANDRONUM" md-active="config.misc.preselectedengine === 'zamdronum'" md-on-select="engine='zandronum'" ng-disabled="!config.active.zandronum" ></md-tab>
-    
-    <md-tab label="DOOM RETRO" md-active="config.misc.preselectedengine === 'doomretro'" md-on-select="engine='doomretro'" ng-disabled="!config.active.doomretro" ></md-tab>
+    <md-tab ng-repeat="sourceport in sourceports track by $index" label="{{sourceport.name}}" md-on-select="selectEngine(sourceport)"></md-tab>
 
-    <md-tab label="ZDOOM" md-active="config.misc.preselectedengine === 'zdoom'" md-on-select="engine='zdoom'" ng-disabled="!config.active.zdoom"></md-tab>    
-  
-    <md-tab label="DOOMRPG" md-active="config.misc.preselectedengine === 'doomrpg'" md-active="true" md-on-select="engine='doomrpg'" ng-disabled="!config.active.doomrpg"></md-tab>
+  </md-tabs>
 
-    <md-tab label="DOOM64" md-active="config.misc.preselectedengine === 'doom64ex'" md-on-select="engine='doom64ex'" ng-disabled="!config.active.doom64ex"></md-tab>
-
-    <md-tab label="PrBoom+" md-active="config.misc.preselectedengine === 'prboomp'" md-on-select="engine='prboomp'" ng-disabled="!config.active.prboomp" ></md-tab>
-
-  </md-tabs>  
-  
   <div style="position: absolute; bottom: 70px; right: 10px; z-index: 999; font-size: 14px;">
     <md-checkbox ng-model="useoblige" aria-label="Oblige" ng-disabled="!config.active.oblige">
       <p style="margin-left: 5px;">Use Oblige</p>
@@ -25,17 +13,17 @@
 <br />
     <md-content>
      <md-list  layout-align="space-around">
-    
-   <md-list-item ng-repeat="iwad in iwads">   
-    
+
+   <md-list-item ng-repeat="iwad in iwads">
+
     <div class="gameholder md-grid-item-content" ng-click="startGame($index, engine)">
     <div class="tint"><i class="mdi mdi-play"></i></div>
         <img data-ng-src="{{iwad.cover}}" />
     </div>
 
-        <div class="md-grid-text gameholder-txt"> {{iwad.name}} </div>      
-      </md-list-item>   
-    </md-list>   
-    <br />   
+        <div class="md-grid-text gameholder-txt"> {{iwad.name}} </div>
+      </md-list-item>
+    </md-list>
+    <br />
     </md-content>
 </md-bottom-sheet>

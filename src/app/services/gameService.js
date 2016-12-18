@@ -72,9 +72,10 @@
         wads.push(opt.map);
       }
 
-      var params = ['-iwad', $rootScope.config.iwadpath + opt.iwad];
+      var params = [opt.engine.cliParams.iwad, $rootScope.config.iwadpath + opt.iwad];
 
-      // For Doom64EX you need an extra soundfile
+      /*
+      For Doom64EX you need an extra soundfile
       if (opt.engine === 'doom64ex') {
         params = params.concat(['-setvars'], ['s_soundfont', $rootScope.config.misc.doom64exsound]);
       }
@@ -96,6 +97,21 @@
       }
 
       params = params.concat(['-savedir'], $rootScope.config.savepaths[opt.engine] + modselectedService.getListname());
+      */
+
+      if (opt.save !== 'false' && opt.save !== false) {
+        params = params.concat([opt.engine.cliParams.loadgame], opt.save);
+      }
+
+      if (wads.length > 0) {
+        params = params.concat([opt.engine.cliParams.file], wads);
+      }
+
+      if (dehs.length > 0) {
+        params = params.concat([opt.engine.cliParams.deh], wads);
+      }
+
+      params = params.concat([opt.engine.cliParams.savedir], $rootScope.config.savepaths[opt.engine] + modselectedService.getListname());
 
       return params;
     }
@@ -118,10 +134,9 @@
         opt.dialog = false;
       }
 
-      var useEngine = $rootScope.config.engines[opt.engine];
-
+      console.log(opt.engine, _paramBuilder(opt));
       try {
-        execFile(useEngine, _paramBuilder(opt), function(error) {
+        execFile(opt.engine.path, _paramBuilder(opt), function(error) {
           if (error) {
             nwService.panic('Enginestarter', 'Doomstarter encountered a Problem', error.stack);
           }

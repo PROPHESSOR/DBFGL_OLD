@@ -99,5 +99,12 @@ var app = angular.module('ssgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
     }
 
     $rootScope.config = configService.getConfig();
+    $rootScope.sourceports = {};
+
+    // #TODO Move this into configservice
+    nwService.readJSON(nwService.buildPath(['sourceports.json'], true)).then(function(data) {
+      $rootScope.sourceports = data;
+    });
+
   });
 })();
