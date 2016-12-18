@@ -15,7 +15,13 @@
     }
   };
   function settingsController($scope, $mdDialog, $mdToast, nwService) {
-    $scope.selected = null;
+    if ($scope.sourceports.length > 0) {
+      $scope.selected = $scope.sourceports[0];
+    } else {
+      $scope.selected = {};
+    }
+
+    $scope.selected = $scope.sourceports[0];
 
     $scope.selectSourcePort = function(item) {
       $scope.selected = item;
