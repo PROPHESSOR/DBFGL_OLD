@@ -30,6 +30,7 @@ $(window).on('resize', function(){
   <div ng-controller="settingsController" >
     <div layout="row" style="height: 100%;">
       <div flex="30">
+        <div class="slimscroll">
         <md-list>
 
         <md-list-item class="md-2-line" ng-click="addSourcePort()">
@@ -68,7 +69,7 @@ $(window).on('resize', function(){
           </md-list-item>
 
         </md-list>
-
+        </div>
       </div>
       <div flex="70">
         <div class="slimscroll" style="padding:20px;">
