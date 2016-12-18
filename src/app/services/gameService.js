@@ -111,7 +111,7 @@
         params = params.concat([opt.engine.cliParams.deh], dehs);
       }
 
-      params = params.concat([opt.engine.cliParams.savedir], $rootScope.config.savepaths[opt.engine] + modselectedService.getListname());
+      params = params.concat([opt.engine.cliParams.savedir], opt.engine.saves + modselectedService.getListname());
 
       return params;
     }
