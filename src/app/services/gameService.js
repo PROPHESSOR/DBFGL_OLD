@@ -53,17 +53,6 @@
       return rpgwads.concat(wads);
     }
 
-        /**
-         * Builds Params for different Engines
-         *
-         * TODO: investigate if setvars is also practical for other instances
-         *
-         * @method _paramBuilder
-         * @for gameService
-         * @param  {Object}  iwad,config,engine,map
-         * @return {String} Parameters for Engines
-         * @private
-         */
     function _paramBuilder(opt) {
       var wads = modselectedService.getPathsFILE(),
         dehs = modselectedService.getPathsDEH();
@@ -73,31 +62,6 @@
       }
 
       var params = [opt.engine.cliParams.iwad, $rootScope.config.iwadpath + opt.iwad];
-
-      /*
-      For Doom64EX you need an extra soundfile
-      if (opt.engine === 'doom64ex') {
-        params = params.concat(['-setvars'], ['s_soundfont', $rootScope.config.misc.doom64exsound]);
-      }
-
-      if (opt.engine === 'doomrpg') {
-        wads = _prepareDoomRPG(wads);
-      }
-
-      if (opt.save !== 'false' && opt.save !== false) {
-        params = params.concat(['-loadgame'], opt.save);
-      }
-
-      if (wads.length > 0) {
-        params = params.concat(['-file'], wads);
-      }
-
-      if (dehs.length > 0) {
-        params = params.concat(['-deh'], dehs);
-      }
-
-      params = params.concat(['-savedir'], $rootScope.config.savepaths[opt.engine] + modselectedService.getListname());
-      */
 
       if (opt.save !== 'false' && opt.save !== false) {
         params = params.concat([opt.engine.cliParams.loadgame], opt.save);
@@ -111,8 +75,13 @@
         params = params.concat([opt.engine.cliParams.deh], dehs);
       }
 
+      if (opt.engine.cliParams.custom.trim() !== '') {
+        params = params.concat(opt.engine.cliParams.custom.split(' '));
+      }
+
       params = params.concat([opt.engine.cliParams.savedir], opt.engine.saves + modselectedService.getListname());
 
+      console.log(params);
       return params;
     }
 
@@ -134,7 +103,6 @@
         opt.dialog = false;
       }
 
-      console.log(opt.engine, _paramBuilder(opt));
       try {
         execFile(opt.engine.path, _paramBuilder(opt), function(error) {
           if (error) {
