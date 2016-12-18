@@ -1,28 +1,33 @@
 (function() {
-  app.controller('settingsController', ['$scope', '$mdDialog', '$mdToast', 'sourceportService', settingsController]);
-
-  function settingsController($scope, $mdDialog, $mdToast, sourceportService) {
+  app.controller('settingsController', ['$scope', '$mdDialog', '$mdToast', 'nwService', settingsController]);
+  var STUB = {
+    icon: '',
+    name: '',
+    path: '/',
+    saves: '/',
+    kind: 'Sorce Port',
+    cliParams: {
+      iwad: '-iwad',
+      loadgame: '-loadgame',
+      file: '-file',
+      deh: '-deh',
+      savedir: '-savedir'
+    }
+  };
+  function settingsController($scope, $mdDialog, $mdToast, nwService) {
     $scope.selected = null;
-
-    sourceportService.getAll().then(function(data) {
-      $scope.sourceports = data;
-    }, function() {
-      $mdToast.show(
-        $mdToast.simple()
-        .content('No Sourceport Configfile found')
-      );
-    });
 
     $scope.selectSourcePort = function(item) {
       $scope.selected = item;
     };
 
     $scope.addSourcePort = function() {
-      $scope.sourceports.push(sourceportService.getStub());
+      $scope.sourceports.push(STUB);
     };
 
     $scope.save = function() {
-      sourceportService.persist($scope.sourceports).then(function() {
+      // #TODO move this into configservice
+      nwService.writeJSON($scope.sourceports, nwService.buildPath(['sourceports.json'], true)).then(function() {
         $mdToast.show(
           $mdToast.simple()
           .content('Saved Sourceport List')
@@ -45,7 +50,7 @@
 
       $mdDialog.show(confirm).then(function() {
         $scope.sourceports.splice($index, 1);
-        $scope.save()
+        $scope.save();
       }, function(error) {
         // error Toast here
       });
