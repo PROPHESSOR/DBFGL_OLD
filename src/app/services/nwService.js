@@ -482,7 +482,7 @@
         return JSON.parse(FS.readFileSync(path, 'utf8'));
       } catch (e) {
         console.log(e);
-        return {};
+        return null;
       }
     };
 
