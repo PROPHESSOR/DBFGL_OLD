@@ -103,7 +103,7 @@
           return {
             name: nwService.getName(item),
             path: file,
-            wads: nwService.readSyncJSON(file)
+            wads: nwService.readSyncJSON(file) || []
           };
         });
 

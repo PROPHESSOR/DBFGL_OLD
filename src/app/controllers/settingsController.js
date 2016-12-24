@@ -1,5 +1,5 @@
 (function() {
-  app.controller('settingsController', ['$scope', '$mdDialog', '$mdToast', 'nwService', settingsController]);
+  app.controller('settingsController', ['$scope', '$mdDialog', '$mdToast', 'configService', settingsController]);
   var STUB = {
     icon: '',
     name: '',
@@ -15,36 +15,25 @@
       savedir: '-savedir'
     }
   };
-  function settingsController($scope, $mdDialog, $mdToast, nwService) {
+  function settingsController($scope, $mdDialog, $mdToast, configService) {
     if ($scope.sourceports.length > 0) {
       $scope.selected = $scope.sourceports[0];
     } else {
       $scope.selected = {};
     }
 
-    $scope.selected = $scope.sourceports[0];
-
     $scope.selectSourcePort = function(item) {
       $scope.selected = item;
     };
 
     $scope.addSourcePort = function() {
-      $scope.sourceports.push(STUB);
+      var newItem = angular.copy(STUB);
+      $scope.sourceports.push(newItem);
+      $scope.selected = newItem;
     };
 
     $scope.save = function() {
-      // #TODO move this into configservice
-      nwService.writeJSON($scope.sourceports, nwService.buildPath(['sourceports.json'], true)).then(function() {
-        $mdToast.show(
-          $mdToast.simple()
-          .content('Saved Sourceport List')
-        );
-      }, function(err) {
-        $mdToast.show(
-          $mdToast.simple()
-          .content(err.message)
-        );
-      });
+      configService.saveSourceports($scope.sourceports);
     };
 
     $scope.delete = function($event, $index) {
@@ -56,10 +45,9 @@
         .targetEvent($event);
 
       $mdDialog.show(confirm).then(function() {
+        console.log($scope.sourceports);
         $scope.sourceports.splice($index, 1);
-        $scope.save();
-      }, function(error) {
-        // error Toast here
+        configService.saveSourceports($scope.sourceports);
       });
     };
   }

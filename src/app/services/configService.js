@@ -3,8 +3,14 @@
 
   function configService(nwService, DEFAULTCONFIG, $mdToast) {
     var service = {};
-    service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildPath(['config.json']), true));
+    service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildPath(['config.json']), true)) || {};
+    service.sourceports = nwService.readSyncJSON(nwService.buildPath(['sourceports.json'], true)) || [];
 
+    /*
+    nwService.readJSON().then(function(data) {
+      $rootScope.sourceports = data;
+    });
+     */
     function sanitize(obj) {
       return _.mapObject(obj, function(item) {
         if (typeof item === 'string') {
@@ -48,6 +54,24 @@
             $mdToast.simple().content('An Error Occured').position('bottom').hideDelay(toastDelay)
         );
       });
+    };
+
+    service.saveSourceports = function(obj) {
+      nwService.writeJSON(obj, nwService.buildPath(['sourceports.json'], true)).then(function() {
+        $mdToast.show(
+          $mdToast.simple()
+          .content('Saved Sourceport List')
+        );
+      }, function(err) {
+        $mdToast.show(
+          $mdToast.simple()
+          .content(err.message)
+        );
+      });
+    };
+
+    service.getSourceports = function() {
+      return service.sourceports;
     };
 
     service.getConfig = function() {

@@ -1,3 +1,6 @@
+// Integrate Mousefix for Mac
+// http://osxdaily.com/2010/08/25/mouse-acceleration/
+
 /**
  * SSGL Launcher
  *
@@ -99,12 +102,8 @@ var app = angular.module('ssgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
     }
 
     $rootScope.config = configService.getConfig();
-    $rootScope.sourceports = {};
+    $rootScope.sourceports = configService.getSourceports();
 
-    // #TODO Move this into configservice
-    nwService.readJSON(nwService.buildPath(['sourceports.json'], true)).then(function(data) {
-      $rootScope.sourceports = data;
-    });
 
   });
 })();
