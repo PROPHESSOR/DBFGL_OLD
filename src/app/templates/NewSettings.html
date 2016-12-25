@@ -20,21 +20,88 @@ var setupScrollies = function() {
 };
 
 $(document).ready(function(){
-  $.when(setupScrollies()).then(fixHeight);
+  setTimeout(function() {
+    $.when(setupScrollies()).then(fixHeight);
+  },10);
+
 });
 
 $(window).on('resize', function(){
-  $.when(setupScrollies()).then(fixHeight);
+  setTimeout(function() {
+    $.when(setupScrollies()).then(fixHeight);
+  },10);
+
 });
 </script>
 
- <md-tabs md-dynamic-height md-no-pagination class="md-hue-1" style="background-color: #5f7985;">
-  <md-tab label="Main Settings"></md-tab>
-  <md-tab label="Sourceports"></md-tab>
-</md-tabs>
+ <md-tabs md-dynamic-height md-no-pagination>
+ <md-tab label="Main Settings">
+  <md-tab-body>
+    <div class="slimscroll" style="padding:20px;" ng-controller="settingsMainConfigController">
+      <fieldset>
+        <legend>Config Settings</legend>
+          <div layout="row">
+            <div flex>
+              <md-button class="md-accent" style="width: 100%" ng-click="openConfig()">
+              <i class="mdi mdi-arrow-up-bold-hexagon-outline"></i>
+              Goto Config</md-button>
+            </div>
+            <div flex>
+              <import-choose label="Import Config" ng-model="importConfig"></import-choose>
+            </div>
+          </div>
+      </fieldset>
 
+        <fieldset>
+          <legend>Main Settings</legend>
+          <div layout="row">
+            <div flex>
+              <md-input-container>
+                <label>Favourite Engine</label>
+                  <md-select ng-model="config.misc.preselectedengine" placeholder="Favourite Engine" ng-disabled="hasEngine()">
+                  <md-option ng-repeat="(key,val) in config.engines" ng-show="config.active[key] === true" value="{{key}}">{{key}}</md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <div flex>
+              <md-input-container>
+                <label>Select list for Startup</label>
+                  <md-select ng-model="config.initList" placeholder="Select List" ng-disabled="modlist.length === 0">
+                  <md-option value="false">Deactivate</md-option>
+                  <md-option ng-repeat="list in modlist" value="{{list}}">{{list.name}}</md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+          </div>
+          <dir-choose label="WAD Path:" ng-model="config.wadpath"></dir-choose>
+          <dir-choose label="iWAD Path:" ng-model="config.iwadpath"></dir-choose>
+          <dir-choose label="Modlist Path:" ng-model="config.modlistpath"></dir-choose>
+          <dir-choose label="Screenshot Path:" ng-model="config.screenshotpath"></dir-choose>
+        </fieldset>
+
+        <div class="settings-cb-wrapper">
+          <md-checkbox ng-model="config.active.oblige" aria-label="Oblige" class="settings-cb">
+            <p class="settings-cb-label">Oblige</p>
+          </md-checkbox>
+        </div>
+
+        <fieldset class="settings-fieldset" ng-show="config.active.oblige">
+          <legend>Oblige Settings</legend>
+          <div>
+            <file-choose label="Oblige Path:" ng-model="config.oblige.binary"></file-choose>
+            <dir-choose label="Oblige MapConfig Path:" ng-model="config.oblige.configs"></dir-choose>
+            <file-choose label="Oblige Random Map File:" ng-model="config.oblige.mappath"></file-choose>
+          </div>
+        </fieldset>
+    </div>
+  </md-tab-body>
+</md-tab>
+
+  <md-tab label="Sourceports">
+<md-tab-body>
   <!-- Controller -->
-  <div ng-controller="settingsController" >
+  <div ng-controller="settingsSourcePortController" >
     <div layout="row" style="height: 100%;">
       <div flex="30">
         <div class="slimscroll">
@@ -148,3 +215,6 @@ $(window).on('resize', function(){
     </div>
     </div>
   </div>
+  </md-tab-body>
+  </md-tab>
+</md-tabs>
