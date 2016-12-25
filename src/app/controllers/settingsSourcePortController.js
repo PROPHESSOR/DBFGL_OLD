@@ -1,5 +1,5 @@
 (function() {
-  app.controller('settingsController', ['$scope', '$mdDialog', '$mdToast', 'configService', settingsController]);
+  app.controller('settingsSourcePortController', ['$scope', '$mdDialog', '$mdToast', 'configService', settingsSourcePortController]);
   var STUB = {
     icon: '',
     name: '',
@@ -15,7 +15,7 @@
       savedir: '-savedir'
     }
   };
-  function settingsController($scope, $mdDialog, $mdToast, configService) {
+  function settingsSourcePortController($scope, $mdDialog, $mdToast, configService) {
     if ($scope.sourceports.length > 0) {
       $scope.selected = $scope.sourceports[0];
     } else {
