@@ -6,13 +6,12 @@
         }
 
         #app {
-            transition: all 0.26s ease-out;
             color: white;
-            opacity: 0;
+            display:none;
         }
 
         #app.show {
-            opacity:1;
+            display:block;
         }
 
         md-tooltip {
