@@ -83,8 +83,8 @@
     };
 
     $scope.settingsOpen = function() {
-      return $state.current.name ==='settings'
-    }
+      return $state.current.name ==='settings';
+    };
   /**
    * Opens Wadfolder in Native Explorer/Finder
    *
