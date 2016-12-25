@@ -1,7 +1,7 @@
 (function() {
 
   var execFile = require('child_process').execFile;
-  app.factory('gameService', ['$q', '$rootScope', '$mdDialog', 'modselectedService', 'nwService', gameService]);
+  app.factory('gameService', ['$q', '$rootScope', '$mdDialog', 'modselectedService', 'nwService', 'macMouseService', gameService]);
 
     /**
      * Service for Starting Engines/Oblige
@@ -10,7 +10,7 @@
      * @module ssgl
      * @submodule gameService
      */
-  function gameService($q, $rootScope, $mdDialog, modselectedService, nwService) {
+  function gameService($q, $rootScope, $mdDialog, modselectedService, nwService, macMouseService) {
 
         /**
          * Ensures loadorder for Doom RPG wads
@@ -93,6 +93,8 @@
          * @param  {Object}  iwad,config,engine,map,save
          */
     service.startDoom = function(opt) {
+
+
       if (typeof opt.map === 'undefined' || opt.map === null) {
         opt.map = false;
       }
@@ -101,13 +103,27 @@
         opt.dialog = false;
       }
 
+      if ($rootScope.config.macaccelfix) {
+        macMouseService.setAccelerationRatio(-1);
+      }
+
       try {
-        execFile(opt.engine.path, _paramBuilder(opt), function(error) {
+        var child = execFile(opt.engine.path, _paramBuilder(opt), function(error) {
           if (error) {
             nwService.panic('Enginestarter', 'Doomstarter encountered a Problem', error.stack);
           }
         });
+
+        child.on('exit', function() {
+          console.log('i exited!');
+          if ($rootScope.config.macaccelfix) {
+            macMouseService.setAccelerationRatio(1);
+          }
+        });
       } catch(e) {
+        if ($rootScope.config.macaccelfix) {
+          macMouseService.setAccelerationRatio(1);
+        }
         nwService.panic('Enginestarter', 'No Engine to start given', e);
       }
     };

@@ -80,6 +80,13 @@ $(window).on('resize', function(){
           <dir-choose label="Screenshot Path:" ng-model="config.screenshotpath"></dir-choose>
         </fieldset>
 
+        <fieldset ng-show="isMac">
+          <legend>Fix Mac Mouse Acceleration</legend>
+          <p>This Feature is in Alpha State, when you start a Sorceport, SSGL will change your global Mouse Acceleration Settings and will change it back when you Exit the Sourceport</p>
+          <p>Current Mouse Accelleration Ratio: <strong>{{mouseRatio}}</strong></p>
+          <md-checkbox ng-model="config.macaccelfix" aria-label="Mac Acceleration Fix">Enable Mouseacceleration Fix</md-checkbox>
+
+        </fieldset>
         <fieldset>
           <legend>Oblige Settings</legend>
           <md-checkbox ng-model="config.active.oblige" aria-label="Oblige">Enable Oblige

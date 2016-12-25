@@ -4,6 +4,7 @@
     'freshinstall': true,
     'initList': false,
     'iwadpath': '',
+    'macaccelfix': false,
     'preselectedengine': '',
     'modlistpath': '',
     'screenshotpath': '',
