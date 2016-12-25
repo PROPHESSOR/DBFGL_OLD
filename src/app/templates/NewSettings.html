@@ -3,9 +3,10 @@
 var fixHeight = function() {
   var mainHeight = $('body').height();
   var ToolbarHeight = $('md-toolbar.layout-row').height();
-  $('.slimScrollDiv, .slimScrollDiv > div').css('height', mainHeight - ToolbarHeight);
+  $('.slimScrollDiv, .slimScrollDiv > div').css('height', (mainHeight - ToolbarHeight - 48));
 };
 
+// dark blue 5f7985
 var setupScrollies = function() {
   $('.slimscroll').slimScroll({
     position: 'right',
@@ -26,6 +27,12 @@ $(window).on('resize', function(){
   $.when(setupScrollies()).then(fixHeight);
 });
 </script>
+
+ <md-tabs md-dynamic-height md-no-pagination class="md-hue-1" style="background-color: #5f7985;">
+  <md-tab label="Main Settings"></md-tab>
+  <md-tab label="Sourceports"></md-tab>
+</md-tabs>
+
   <!-- Controller -->
   <div ng-controller="settingsController" >
     <div layout="row" style="height: 100%;">
