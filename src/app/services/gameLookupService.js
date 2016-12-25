@@ -18,7 +18,7 @@
 
             screens = filenames.map(function(item) {
               return {
-                pic: nwService.buildPath([$rootScope.config.screenshotpath, mod.name , item], false),
+                pic: nwService.buildPath([$rootScope.config.screenshotpath, mod.name , item]),
                 name: item.split('.')[0]
               };
             });

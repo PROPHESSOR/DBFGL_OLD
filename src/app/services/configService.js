@@ -3,8 +3,8 @@
 
   function configService(nwService, DEFAULTCONFIG, $mdToast) {
     var service = {};
-    service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildPath(['config.json']), true)) || {};
-    service.sourceports = nwService.readSyncJSON(nwService.buildPath(['sourceports.json'], true)) || [];
+    service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildUserPath('config.json'), false)) || {};
+    service.sourceports = nwService.readSyncJSON(nwService.buildUserPath('sourceports.json', false)) || [];
 
     /*
     nwService.readJSON().then(function(data) {
@@ -40,7 +40,7 @@
     service.saveConfig = function(obj) {
       var toastDelay = 1500;
 
-      nwService.writeJSON(sanitize(obj), 'config.json', true).then(function() {
+      nwService.writeJSON(sanitize(obj), nwService.buildUserPath('config.json')).then(function() {
         $mdToast.show(
             $mdToast.simple().content('Saved configuration - SSGL restarts ...').position('bottom').hideDelay(toastDelay)
         );
@@ -49,7 +49,8 @@
           window.location.reload();
         }, toastDelay + 500);
 
-      }, function() {
+      }, function(e) {
+        console.log(e);
         $mdToast.show(
             $mdToast.simple().content('An Error Occured').position('bottom').hideDelay(toastDelay)
         );
@@ -57,7 +58,7 @@
     };
 
     service.saveSourceports = function(obj) {
-      nwService.writeJSON(obj, nwService.buildPath(['sourceports.json'], true)).then(function() {
+      nwService.writeJSON(obj, nwService.buildUserPath('sourceports.json')).then(function() {
         $mdToast.show(
           $mdToast.simple()
           .content('Saved Sourceport List')

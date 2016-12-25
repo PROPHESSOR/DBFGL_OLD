@@ -19,7 +19,7 @@
     };
 
     $scope.openConfig = function() {
-      nwService.getShell().showItemInFolder(nwService.buildPath(['config.json'], true));
+      nwService.getShell().showItemInFolder(nwService.buildUserPath('config.json'));
     };
 
     $scope.save = function() {

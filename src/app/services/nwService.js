@@ -5,7 +5,8 @@
     os = require('os'),
     chokidar = require('chokidar'),
     md5File = require('md5-file'),
-    Window = GUI.Window.get();
+    Window = GUI.Window.get(),
+    osenv = require('osenv');
 
   app.factory('nwService', ['$q', '$rootScope', '$mdDialog', nwService]);
     /**
@@ -18,7 +19,6 @@
      */
   function nwService($q, $rootScope, $mdDialog) {
     var service = {};
-
     //#TODO: doc
     service.watcher = null;
 
@@ -50,28 +50,6 @@
       } else {
         return '/';
       }
-    }
-
-    /**
-     * Gives back Fullpath of BASEDIR
-     *
-     * @method _checkRel
-     * @for nwService
-     * @param  {String} path given path
-     * @param  {Boolean} relative When true give absolute path from BASEDIR back
-     * @return {String} gives back absolute path when path is relative
-     * @private
-     */
-    function _checkRel(path, relative) {
-      if (typeof relative === 'undefined') {
-        relative = false;
-      }
-
-      if (relative === true) {
-        path = service.execpath + service.pathsep + path;
-      }
-
-      return path;
     }
 
     service.livereload = function(callback) {
@@ -222,6 +200,34 @@
       return PATH.join.apply(this, array);
     };
 
+    service.getUserDir = function() {
+      if (process.platform !== 'win32') {
+        return service.buildPath([osenv.home(), '.ssgl']);
+      } else {
+        return service.buildPath([osenv.home(), 'SSGL']);
+      }
+    };
+
+    service.buildUserPath = function(file) {
+      if (process.platform !== 'win32') {
+        return service.buildPath([osenv.home(), '.ssgl', file]);
+      } else {
+        return service.buildPath([osenv.home(), 'SSGL'] , file);
+      }
+    };
+
+    service.installUserDir = function() {
+      var userDir = service.getUserDir();
+
+      FS.exists(userDir, function(exists) {
+        if (!exists) {
+          FS.mkdirSync(userDir);
+          FS.writeFile(service.buildUserPath('config.json'), '');
+          FS.writeFile(service.buildUserPath('sourceports.json'), '');
+        }
+      });
+    };
+
     /**
      * gives back path as array
      * @method splitPath
@@ -315,11 +321,10 @@
         //TODO: error handling
         //TODO: file extension filter
     service.wipeDir = function(path) {
-      path = _checkRel(path, false);
 
       FS.readdir(path, function(err, fileArr) {
         for (var i = fileArr.length; i--;) {
-          var full = service.buildPath([path, fileArr[i]], false);
+          var full = service.buildPath([path, fileArr[i]]);
           FS.unlinkSync(full);
         }
       });
@@ -476,8 +481,7 @@
      * @param  {[type]}     relative When true use BASEDIR
      * @return {Object} Object parsed from JSON
      */
-    service.readSyncJSON = function(path, relative) {
-      path = _checkRel(path, relative);
+    service.readSyncJSON = function(path) {
       try {
         return JSON.parse(FS.readFileSync(path, 'utf8'));
       } catch (e) {
@@ -526,9 +530,8 @@
      * @param  {Boolean} relative When true use BASEDIR
      * @return {Promise}
      */
-    service.writeTxt = function(content, path, relative) {
+    service.writeTxt = function(content, path) {
       var def = $q.defer();
-      path = _checkRel(path, relative);
 
       FS.writeFile(path, content, function(err) {
         if (err) {
@@ -552,9 +555,8 @@
      * @param  {Boolean} relative When true use BASEDIR
      * @return {Promise}
      */
-    service.writeJSON = function(givenObject, path, relative) {
+    service.writeJSON = function(givenObject, path) {
       var def = $q.defer();
-      path = _checkRel(path, relative);
 
       FS.writeFile(path, JSON.stringify(givenObject, null, 4), function(err) {
         if (err) {

@@ -10,8 +10,9 @@
         "title" : "Super Shotgun Launcher (DEV)"
     },
      "devDependencies": {
-      "chokidar": "*",
-      "md5-file": "*"
+        "osenv": "0.1.4",
+        "chokidar": "1.6.1",
+        "md5-file": "2.0.4"
     }
 }
 

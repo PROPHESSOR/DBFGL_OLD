@@ -30,7 +30,7 @@
 
           $scope.dontShow = function() {
             $rootScope.config.dontShowUpdate = data.tag_name;
-            nwService.writeJSON($rootScope.config, 'config.json', true);
+            nwService.writeJSON($rootScope.config, nwService.buildUserPath('config.json'));
             $mdDialog.cancel();
           };
 
