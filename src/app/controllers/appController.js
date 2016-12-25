@@ -1,6 +1,7 @@
 (function() {
   app.controller('appController', [
     '$scope',
+    '$state',
     '$mdDialog',
     '$mdToast',
     '$mdBottomSheet',
@@ -24,6 +25,7 @@
    */
   function appController(
    $scope,
+   $state,
    $mdDialog,
    $mdToast,
    $mdBottomSheet,
@@ -40,7 +42,7 @@
     var $PARENT = $scope;
 
     if ($scope.config.freshinstall === true) {
-      SettingsDialog(null);
+      $state.go('settings');
     }
 
     zoomService.init();
@@ -63,8 +65,8 @@
    * @method showSettings
    * @param  Event ev Clickevent
    */
-    $scope.showSettings = function(ev) {
-      SettingsDialog(ev);
+    $scope.showSettings = function() {
+      $state.go('settings');
     };
 
   /**
