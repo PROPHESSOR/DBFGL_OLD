@@ -7,14 +7,16 @@
     });
 
     if (process.platform === 'darwin') {
-      macMouseService.getAccelerationRatio().then(function(ratio) {
-        $scope.mouseRatio = ratio;
-      });
+      if (!$scope.config.macaccelfix.desktopRatio) {
+        macMouseService.getAccelerationRatio().then(function(ratio) {
+          $scope.config.macaccelfix.desktopRatio = ratio;
+        });
+      }
     }
 
     $scope.isMac = function() {
       return process.platform == 'darwin';
-    }
+    };
 
     $scope.openConfig = function() {
       nwService.getShell().showItemInFolder(nwService.buildPath(['config.json'], true));
@@ -22,8 +24,9 @@
 
     $scope.save = function() {
       $scope.config.freshinstall = false;
-      // if started in settings - this could be undefined
-      nwService.getWatcher().close();
+
+      var watcher = nwService.getWatcher();
+      if (watcher) watcher.close();
       configService.saveConfig($scope.config);
     };
 

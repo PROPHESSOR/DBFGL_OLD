@@ -103,26 +103,26 @@
         opt.dialog = false;
       }
 
-      if ($rootScope.config.macaccelfix) {
-        macMouseService.setAccelerationRatio(-1);
+      if ($rootScope.config.macaccelfix.enabled) {
+        macMouseService.setAccelerationRatio($rootScope.config.macaccelfix.gameRatio);
       }
 
       try {
         var child = execFile(opt.engine.path, _paramBuilder(opt), function(error) {
           if (error) {
+            macMouseService.setAccelerationRatio($rootScope.config.macaccelfix.desktopRatio);
             nwService.panic('Enginestarter', 'Doomstarter encountered a Problem', error.stack);
           }
         });
 
         child.on('exit', function() {
-          console.log('i exited!');
           if ($rootScope.config.macaccelfix) {
-            macMouseService.setAccelerationRatio(1);
+            macMouseService.setAccelerationRatio($rootScope.config.macaccelfix.desktopRatio);
           }
         });
       } catch(e) {
         if ($rootScope.config.macaccelfix) {
-          macMouseService.setAccelerationRatio(1);
+          macMouseService.setAccelerationRatio($rootScope.config.macaccelfix.desktopRatio);
         }
         nwService.panic('Enginestarter', 'No Engine to start given', e);
       }

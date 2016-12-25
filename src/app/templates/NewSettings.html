@@ -59,7 +59,8 @@ $(window).on('resize', function(){
               <md-input-container>
                 <label>Favourite Sourceport</label>
                   <md-select ng-model="config.misc.preselectedengine" placeholder="Favourite Sourceport" >
-                  <md-option ng-repeat="sourceport in sourceports" ng-show="config.active[sourceport.name]"value="{{sourceport.name}}">{{sourceport.name}}</md-option>
+                  <md-option value="false">Disable</md-option >
+                  <md-option ng-repeat="sourceport in sourceports" value="{{sourceport.name}}">{{sourceport.name}}</md-option>
                 </md-select>
               </md-input-container>
             </div>
@@ -81,10 +82,15 @@ $(window).on('resize', function(){
         </fieldset>
 
         <fieldset ng-show="isMac">
-          <legend>Fix Mac Mouse Acceleration</legend>
-          <p>This Feature is in Alpha State, when you start a Sorceport, SSGL will change your global Mouse Acceleration Settings and will change it back when you Exit the Sourceport</p>
-          <p>Current Mouse Accelleration Ratio: <strong>{{mouseRatio}}</strong></p>
-          <md-checkbox ng-model="config.macaccelfix" aria-label="Mac Acceleration Fix">Enable Mouseacceleration Fix</md-checkbox>
+          <legend>Fix Mac Mouse Acceleration [ALPHA]</legend>
+          <p>SSGL will automatically change the systemglobal mouseacceleration settings when you start a sourceport, and set it back to the <strong>desktop acceleration ratio</strong> when the sourceport gets closed.</p>
+
+           <md-input-container>
+            <label>Desktop Acceleration Ratio</label>
+            <input type="text" ng-model="config.macaccelfix.desktopRatio">
+          </md-input-container>
+
+          <md-checkbox ng-model="config.macaccelfix.enabled" aria-label="Mac Acceleration Fix">Enable Mouseacceleration Fix</md-checkbox>
 
         </fieldset>
         <fieldset>
