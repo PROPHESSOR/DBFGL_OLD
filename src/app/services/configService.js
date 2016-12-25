@@ -6,11 +6,6 @@
     service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildUserPath('config.json'), false)) || {};
     service.sourceports = nwService.readSyncJSON(nwService.buildUserPath('sourceports.json', false)) || [];
 
-    /*
-    nwService.readJSON().then(function(data) {
-      $rootScope.sourceports = data;
-    });
-     */
     function sanitize(obj) {
       return _.mapObject(obj, function(item) {
         if (typeof item === 'string') {

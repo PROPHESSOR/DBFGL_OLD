@@ -77,7 +77,6 @@ var app = angular.module('ssgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
 
     if (nwService.hasArg('-r') || nwService.hasArg('--livereload')) {
       try {
-
         nwService.livereload(function(file) {
           if (file && file.split('.').pop() === 'css') {
             var styles = document.querySelectorAll('link[rel=stylesheet]');
@@ -89,7 +88,6 @@ var app = angular.module('ssgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
             window.location.reload();
           }
         });
-
       } catch (e) {
         console.log('Something went wrong');
       }
