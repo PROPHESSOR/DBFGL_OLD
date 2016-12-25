@@ -57,9 +57,9 @@ $(window).on('resize', function(){
           <div layout="row">
             <div flex>
               <md-input-container>
-                <label>Favourite Engine</label>
-                  <md-select ng-model="config.misc.preselectedengine" placeholder="Favourite Engine" ng-disabled="hasEngine()">
-                  <md-option ng-repeat="(key,val) in config.engines" ng-show="config.active[key] === true" value="{{key}}">{{key}}</md-option>
+                <label>Favourite Sourceport</label>
+                  <md-select ng-model="config.misc.preselectedengine" placeholder="Favourite Sourceport" >
+                  <md-option ng-repeat="sourceport in sourceports" ng-show="config.active[sourceport.name]value="{{sourceport.name}}">{{sourceport.name}}</md-option>
                 </md-select>
               </md-input-container>
             </div>
@@ -68,7 +68,7 @@ $(window).on('resize', function(){
               <md-input-container>
                 <label>Select list for Startup</label>
                   <md-select ng-model="config.initList" placeholder="Select List" ng-disabled="modlist.length === 0">
-                  <md-option value="false">Deactivate</md-option>
+                  <md-option value="false">Disable</md-option>
                   <md-option ng-repeat="list in modlist" value="{{list}}">{{list.name}}</md-option>
                 </md-select>
               </md-input-container>
@@ -80,20 +80,29 @@ $(window).on('resize', function(){
           <dir-choose label="Screenshot Path:" ng-model="config.screenshotpath"></dir-choose>
         </fieldset>
 
-        <div class="settings-cb-wrapper">
-          <md-checkbox ng-model="config.active.oblige" aria-label="Oblige" class="settings-cb">
-            <p class="settings-cb-label">Oblige</p>
-          </md-checkbox>
-        </div>
-
-        <fieldset class="settings-fieldset" ng-show="config.active.oblige">
+        <fieldset>
           <legend>Oblige Settings</legend>
-          <div>
-            <file-choose label="Oblige Path:" ng-model="config.oblige.binary"></file-choose>
-            <dir-choose label="Oblige MapConfig Path:" ng-model="config.oblige.configs"></dir-choose>
-            <file-choose label="Oblige Random Map File:" ng-model="config.oblige.mappath"></file-choose>
-          </div>
+          <md-checkbox ng-model="config.active.oblige" aria-label="Oblige">Enable Oblige</p>
+          </md-checkbox>
+          <file-choose label="Oblige Path:" ng-model="config.oblige.binary"></file-choose>
+          <dir-choose label="Oblige MapConfig Path:" ng-model="config.oblige.configs"></dir-choose>
+          <file-choose label="Oblige Random Map File:" ng-model="config.oblige.mappath"></file-choose>
+
         </fieldset>
+      <div style="text-align:right">
+        <md-button
+        class="md-primary md-raised">
+        Cancel
+        </md-button>
+
+        <md-button
+        class="md-accent md-raised"
+        ng-click="save()">
+        Save
+        </md-button>
+        <br /><br /><br />
+      </div>
+
     </div>
   </md-tab-body>
 </md-tab>
@@ -101,7 +110,7 @@ $(window).on('resize', function(){
   <md-tab label="Sourceports">
 <md-tab-body>
   <!-- Controller -->
-  <div ng-controller="settingsSourcePortController" >
+  <div ng-controller="settingsSourcePortController">
     <div layout="row" style="height: 100%;">
       <div flex="30">
         <div class="slimscroll">
