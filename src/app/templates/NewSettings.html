@@ -59,7 +59,7 @@ $(window).on('resize', function(){
               <md-input-container>
                 <label>Favourite Sourceport</label>
                   <md-select ng-model="config.misc.preselectedengine" placeholder="Favourite Sourceport" >
-                  <md-option ng-repeat="sourceport in sourceports" ng-show="config.active[sourceport.name]value="{{sourceport.name}}">{{sourceport.name}}</md-option>
+                  <md-option ng-repeat="sourceport in sourceports" ng-show="config.active[sourceport.name]"value="{{sourceport.name}}">{{sourceport.name}}</md-option>
                 </md-select>
               </md-input-container>
             </div>
@@ -82,13 +82,13 @@ $(window).on('resize', function(){
 
         <fieldset>
           <legend>Oblige Settings</legend>
-          <md-checkbox ng-model="config.active.oblige" aria-label="Oblige">Enable Oblige</p>
+          <md-checkbox ng-model="config.active.oblige" aria-label="Oblige">Enable Oblige
           </md-checkbox>
           <file-choose label="Oblige Path:" ng-model="config.oblige.binary"></file-choose>
           <dir-choose label="Oblige MapConfig Path:" ng-model="config.oblige.configs"></dir-choose>
           <file-choose label="Oblige Random Map File:" ng-model="config.oblige.mappath"></file-choose>
-
         </fieldset>
+
       <div style="text-align:right">
         <md-button
         class="md-primary md-raised">
