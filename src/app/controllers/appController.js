@@ -11,7 +11,6 @@
     'nwService',
     'gameService',
     'modselectedService',
-    'configService',
     'updateService',
     'zoomService',
     appController]);
@@ -35,7 +34,6 @@
    nwService,
    gameService,
    modselectedService,
-   configService,
    updateService,
    zoomService) {
 
@@ -449,90 +447,5 @@
         };
       }
     };
-
-  /**
-   * Settings Dialog
-   *
-   * @method SettingsDialog
-   * @for appController
-   * @param  {Event} ev Clickevent
-   */
-    function SettingsDialog(ev) {
-      $mdDialog.show({
-        controller: SettingsDialogController,
-        templateUrl: 'app/templates/Settings.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose: true
-      });
-
-    /**
-     * Dialog Controller
-     *
-     * @method DialogController
-     * @for SettingsDialog
-     * @param  {[type]}         $scope    [description]
-     * @param  {[type]}         $mdDialog [description]
-     */
-      function SettingsDialogController($scope, $mdDialog) {
-        modlistService.getLists().then(function(list) {
-        /**
-         * @property
-         * @type {array}
-         * @async
-         */
-          $scope.modlist = list;
-        });
-
-      /**
-       * @property config
-       * @type {Object}
-       */
-        $scope.config = angular.copy($PARENT.config);
-
-        $scope.openConfig = function() {
-          nwService.getShell().showItemInFolder(nwService.buildPath(['config.json'], true));
-        };
-
-        $scope.hasEngine = function() {
-          $PARENT.hasEngine();
-        };
-
-        //TODO: docs
-        $scope.doomrpgCheckbox = function(value) {
-          if (value === false) {
-            $scope.config.active.doomrpgrl = false;
-            $scope.config.active.doomrpgrlmonsters = false;
-          }
-        };
-
-        //TODO: docs
-        $scope.gzDoomDownload = function() {
-          nwService.getShell().openExternal('http://forum.drdteam.org/viewtopic.php?f=23&t=6791');
-        };
-      /**
-       * Close Dialog
-       *
-       * @method cancel
-       * @for SettingsDialogController
-       */
-        $scope.cancel = function() {
-          $mdDialog.cancel();
-        };
-
-      /**
-       * Save Settings, fire Toast and Refresh
-       *
-       * @method save
-       * @for SettingsDialogController
-       */
-        $scope.save = function() {
-          $scope.config.freshinstall = false;
-          nwService.getWatcher().close();
-          configService.saveConfig($scope.config);
-          $mdDialog.cancel();
-        };
-      }
-    }
   }
 })();
