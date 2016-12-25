@@ -47,7 +47,6 @@
 
     zoomService.init();
     updateService.autoUpdate();
-
   /**
    * Forces Update lookup, Updatedialog or no Update available feedback dialog is showing
    *
@@ -69,6 +68,10 @@
       $state.go('settings');
     };
 
+    $scope.goBack = function() {
+      $state.go('main');
+    };
+
   /**
    * Reloads the complete Application
    *
@@ -79,6 +82,9 @@
       window.location.reload();
     };
 
+    $scope.settingsOpen = function() {
+      return $state.current.name ==='settings'
+    }
   /**
    * Opens Wadfolder in Native Explorer/Finder
    *

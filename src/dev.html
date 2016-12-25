@@ -19,7 +19,10 @@
     <body ng-app="ssgl" layout="column" ng-controller="appController" id="app">
         <md-toolbar layout="row">
         <div class="md-toolbar-tools">
-            <md-button aria-label="Open Modlists" style="min-width: 50px;margin:0 0 0 -10px;;" ng-click="toggleSidebar()"><i class="mdi mdi-menu" style="font-size: 35px; margin-top: 8px;"></i></md-button>
+            <md-button ng-if="!settingsOpen()" aria-label="Open Modlists" style="min-width: 50px;margin:0 0 0 -10px;" ng-click="toggleSidebar()"><i class="mdi mdi-menu" style="font-size: 35px; margin-top: 8px;"></i></md-button>
+
+            <md-button ng-if="settingsOpen()" aria-label="Go Back" ng-click="goBack()" style="min-width: 50px;margin:0 0 0 -10px;"><i class="mdi mdi-arrow-left" style="font-size: 35px; margin-top: 8px;"></i></md-button>
+
             <h1 style="margin-left: 10px;">Super Shotgun Launcher</h1>
         </div>
 
