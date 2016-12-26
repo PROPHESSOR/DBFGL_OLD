@@ -42,12 +42,10 @@ $(window).on('resize', function(){
         <legend>Config Settings</legend>
           <div layout="row">
             <div flex>
-              <md-button class="md-accent" style="width: 100%" ng-click="openConfig()">
-              <i class="mdi mdi-arrow-up-bold-hexagon-outline"></i>
-              Goto Config</md-button>
+              <import-choose kind="sourceports" label="Import Sourceports"></import-choose>
             </div>
             <div flex>
-              <import-choose label="Import Config" ng-model="importConfig"></import-choose>
+              <import-choose kind="config" label="Import Config"></import-choose>
             </div>
           </div>
       </fieldset>
