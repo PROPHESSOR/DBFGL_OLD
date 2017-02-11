@@ -79,24 +79,23 @@ $(window).on('resize', function(){
           <dir-choose label="Screenshot Path:" ng-model="config.screenshotpath"></dir-choose>
         </fieldset>
 
-        <fieldset ng-show="isMac">
-          <legend>Fix Mac Mouse Acceleration [ALPHA]</legend>
-          <p>SSGL will automatically change the systemglobal mouseacceleration settings when you start a sourceport, and set it back to the <strong>desktop acceleration ratio</strong> when the sourceport gets closed.</p>
-
-           <md-input-container>
-            <label>Desktop Acceleration Ratio</label>
-            <input type="text" ng-model="config.macaccelfix.desktopRatio">
-          </md-input-container>
-
-          <md-checkbox ng-model="config.macaccelfix.enabled" aria-label="Mac Acceleration Fix">Enable Mouseacceleration Fix</md-checkbox>
-
-        </fieldset>
-
         <fieldset>
-          <legend>Quit SSGL on Game Exit</legend>
+          <legend>Misc Settings</legend>
+          <div layout="row" ng-show="isMac">
+            <div flex="50">
+              <md-checkbox ng-model="config.macaccelfix.enabled" aria-label="Mac Acceleration Fix">Enable Mouseacceleration Fix</md-checkbox>
+            </div>
+
+            <div flex="50">
+                 <md-input-container>
+                  <label>Desktop Acceleration Ratio</label>
+                  <input type="text" ng-model="config.macaccelfix.desktopRatio">
+                </md-input-container>
+            </div>
+          </div>
+
           <md-checkbox ng-model="config.quitonexit" aria-label="Quit SSGL on Game Exit">Quit SSGL on Game Exit</md-checkbox>
         </fieldset>
-
         <fieldset>
           <legend>Oblige Settings</legend>
           <md-checkbox ng-model="config.active.oblige" aria-label="Oblige">Enable Oblige
