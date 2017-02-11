@@ -22,7 +22,7 @@
 
     nwService.startWatcher($rootScope.config.wadpath, function(file, event) {
       if (event === 'add') {
-        var allowed = ['PK3', 'WAD', 'DEH', 'BEX'];
+        var allowed = ['PK3', 'WAD', 'DEH', 'BEX', 'PK7'];
 
         var struc = nwService.splitPath(file),
           dirname = struc[struc.length - 2],

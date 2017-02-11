@@ -8,6 +8,7 @@
     'modlistpath': '',
     'screenshotpath': '',
     'wadpath': '',
+    'quitonexit': false,
     'macaccelfix': {
       'enabled': false,
       'desktopRatio': null,

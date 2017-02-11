@@ -116,6 +116,11 @@
         });
 
         child.on('exit', function() {
+
+          if ($rootScope.config.quitonexit) {
+            process.exit();
+          }
+
           if ($rootScope.config.macaccelfix) {
             macMouseService.setAccelerationRatio($rootScope.config.macaccelfix.desktopRatio);
           }
