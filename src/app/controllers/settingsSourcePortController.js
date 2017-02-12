@@ -15,6 +15,7 @@
       savedir: '-savedir'
     }
   };
+
   function settingsSourcePortController($scope, $mdDialog, $mdToast, configService) {
     if ($scope.sourceports.length > 0) {
       $scope.selected = $scope.sourceports[0];
@@ -34,6 +35,10 @@
 
     $scope.save = function() {
       configService.saveSourceports($scope.sourceports);
+    };
+
+    $scope.cancel = function() {
+
     };
 
     $scope.delete = function($event, $index) {

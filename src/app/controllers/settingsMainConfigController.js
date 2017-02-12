@@ -1,6 +1,6 @@
 (function() {
-  app.controller('settingsMainConfigController', ['$scope', 'nwService', 'configService', 'modlistService', 'macMouseService', settingsMainConfigController]);
-  function settingsMainConfigController($scope, nwService, configService, modlistService, macMouseService) {
+  app.controller('settingsMainConfigController', ['$scope', '$mdToast', 'nwService', 'configService', 'modlistService', 'macMouseService', settingsMainConfigController]);
+  function settingsMainConfigController($scope, $mdToast, nwService, configService, modlistService, macMouseService) {
 
     modlistService.getLists().then(function(list) {
       $scope.modlist = list;
@@ -13,6 +13,8 @@
         });
       }
     }
+
+    $scope.editedConfig = angular.copy($scope.config);
 
     $scope.isMac = function() {
       return process.platform == 'darwin';
@@ -28,6 +30,16 @@
       var watcher = nwService.getWatcher();
       if (watcher) watcher.close();
       configService.saveConfig($scope.config);
+    };
+
+    $scope.cancel = function() {
+      $scope.editedConfig = angular.copy($scope.config);
+
+      $mdToast.show(
+        $mdToast.simple()
+        .content('Config resetted')
+      );
+
     };
 
     $scope.hasEngine = function() {

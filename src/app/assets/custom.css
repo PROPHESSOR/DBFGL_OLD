@@ -274,6 +274,14 @@ legend {
     font-size: 16px;
 }
 
+.md-avatar.remove {
+    background-color: #975637;
+}
+
+.md-avatar.add {
+    background-color: #547a5f;
+}
+
 .md-avatar {
     box-shadow: 0px 0px 0px 3px #555;
     transition: box-shadow 0.25s ease-in;
@@ -291,7 +299,7 @@ legend {
     background-color: #546e7a;
 }
 
-.md-avatar.PK3 {
+.md-avatar.PK3, .md-avatar.PK7 {
     background-color: #547a5f;
 }
 

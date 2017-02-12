@@ -56,7 +56,7 @@ $(window).on('resize', function(){
             <div flex>
               <md-input-container>
                 <label>Favourite Sourceport</label>
-                  <md-select ng-model="config.misc.preselectedengine" placeholder="Favourite Sourceport" >
+                  <md-select ng-model="editedConfig.misc.preselectedengine" placeholder="Favourite Sourceport" >
                   <md-option value="false">Disable</md-option >
                   <md-option ng-repeat="sourceport in sourceports" value="{{sourceport.name}}">{{sourceport.name}}</md-option>
                 </md-select>
@@ -66,55 +66,58 @@ $(window).on('resize', function(){
             <div flex>
               <md-input-container>
                 <label>Select list for Startup</label>
-                  <md-select ng-model="config.initList" placeholder="Select List" ng-disabled="modlist.length === 0">
+                  <md-select ng-model="editedConfig.initList" placeholder="Select List" ng-disabled="modlist.length === 0">
                   <md-option value="false">Disable</md-option>
                   <md-option ng-repeat="list in modlist" value="{{list}}">{{list.name}}</md-option>
                 </md-select>
               </md-input-container>
             </div>
           </div>
-          <dir-choose label="WAD Path:" ng-model="config.wadpath"></dir-choose>
-          <dir-choose label="iWAD Path:" ng-model="config.iwadpath"></dir-choose>
-          <dir-choose label="Modlist Path:" ng-model="config.modlistpath"></dir-choose>
-          <dir-choose label="Screenshot Path:" ng-model="config.screenshotpath"></dir-choose>
+          <dir-choose label="WAD Path:" ng-model="editedConfig.wadpath"></dir-choose>
+          <dir-choose label="iWAD Path:" ng-model="editedConfig.iwadpath"></dir-choose>
+          <dir-choose label="Modlist Path:" ng-model="editedConfig.modlistpath"></dir-choose>
+          <dir-choose label="Screenshot Path:" ng-model="editedConfig.screenshotpath"></dir-choose>
         </fieldset>
 
         <fieldset>
           <legend>Misc Settings</legend>
           <div layout="row" ng-show="isMac">
             <div flex="50">
-              <md-checkbox ng-model="config.macaccelfix.enabled" aria-label="Mac Acceleration Fix">Enable Mouseacceleration Fix</md-checkbox>
+              <md-checkbox ng-model="editedConfig.macaccelfix.enabled" aria-label="Mac Acceleration Fix">Enable Mouseacceleration Fix</md-checkbox>
             </div>
 
             <div flex="50">
                  <md-input-container>
                   <label>Desktop Acceleration Ratio</label>
-                  <input type="text" ng-model="config.macaccelfix.desktopRatio">
+                  <input type="text" ng-model="editedConfig.macaccelfix.desktopRatio">
                 </md-input-container>
             </div>
           </div>
 
-          <md-checkbox ng-model="config.quitonexit" aria-label="Quit SSGL on Game Exit">Quit SSGL on Game Exit</md-checkbox>
+          <md-checkbox ng-model="editedConfig.quitonexit" aria-label="Quit SSGL on Game Exit">Quit SSGL on Game Exit</md-checkbox>
         </fieldset>
         <fieldset>
           <legend>Oblige Settings</legend>
-          <md-checkbox ng-model="config.active.oblige" aria-label="Oblige">Enable Oblige
+          <md-checkbox ng-model="editedConfig.active.oblige" aria-label="Oblige">Enable Oblige
           </md-checkbox>
-          <file-choose label="Oblige Path:" ng-model="config.oblige.binary"></file-choose>
-          <dir-choose label="Oblige MapConfig Path:" ng-model="config.oblige.configs"></dir-choose>
-          <file-choose label="Oblige Random Map File:" ng-model="config.oblige.mappath"></file-choose>
+          <file-choose label="Oblige Path:" ng-model="editedConfig.oblige.binary"></file-choose>
+          <dir-choose label="Oblige MapConfig Path:" ng-model="editedConfig.oblige.configs"></dir-choose>
+          <file-choose label="Oblige Random Map File:" ng-model="editedConfig.oblige.mappath"></file-choose>
         </fieldset>
 
       <div style="text-align:right">
         <md-button
-        class="md-primary md-raised">
-        Cancel
+          class="md-primary md-raised"
+          ng-click="cancel()"
+        >
+          Cancel
         </md-button>
 
         <md-button
-        class="md-accent md-raised"
-        ng-click="save()">
-        Save
+          class="md-accent md-raised"
+          ng-click="save()"
+        >
+          Save
         </md-button>
         <br /><br /><br />
       </div>
@@ -134,7 +137,7 @@ $(window).on('resize', function(){
 
         <md-list-item class="md-2-line" ng-click="addSourcePort()">
 
-          <div class="md-avatar">
+          <div class="md-avatar add">
             <div class="modtype">
               <i class="mdi mdi-plus"></i>
             </div>
@@ -147,12 +150,12 @@ $(window).on('resize', function(){
           </md-list-item>
 
           <md-list-item
-            class="md-2-line"
+            class="md-2-line repeat-animation"
             ng-repeat="sourceport in sourceports track by $index"
             ng-click="selectSourcePort(sourceport)">
 
           <div
-            class="md-avatar"
+            class="md-avatar remove"
             ng-click="delete($event, $index)"
           >
             <div class="modtype">
@@ -181,34 +184,31 @@ $(window).on('resize', function(){
             <file-choose label="Source Port Path" ng-model="selected.path"></file-choose>
             <dir-choose label="Source Port Savegame Directory:" ng-model="selected.saves"></dir-choose>
           </fieldset>
-
           <fieldset>
+            <md-input-container>
+              <label>Parameter iwad:</label>
+              <input type="text" ng-model="selected.cliParams.iwad">
+            </md-input-container>
 
-          <md-input-container>
-            <label>Parameter iwad:</label>
-            <input type="text" ng-model="selected.cliParams.iwad">
-          </md-input-container>
+            <md-input-container>
+              <label>Parameter loadgame:</label>
+              <input type="text" ng-model="selected.cliParams.loadgame">
+            </md-input-container>
 
-          <md-input-container>
-            <label>Parameter loadgame:</label>
-            <input type="text" ng-model="selected.cliParams.loadgame">
-          </md-input-container>
+            <md-input-container>
+              <label>Parameter file (wad):</label>
+              <input type="text" ng-model="selected.cliParams.file">
+            </md-input-container>
 
-          <md-input-container>
-            <label>Parameter file (wad):</label>
-            <input type="text" ng-model="selected.cliParams.file">
-          </md-input-container>
+            <md-input-container>
+              <label>Parameter deh:</label>
+              <input type="text" ng-model="selected.cliParams.deh">
+            </md-input-container>
 
-          <md-input-container>
-            <label>Parameter deh:</label>
-            <input type="text" ng-model="selected.cliParams.deh">
-          </md-input-container>
-
-          <md-input-container>
-            <label>Parameter savedir:</label>
-            <input type="text" ng-model="selected.cliParams.savedir">
-          </md-input-container>
-
+            <md-input-container>
+              <label>Parameter savedir:</label>
+              <input type="text" ng-model="selected.cliParams.savedir">
+            </md-input-container>
           </fieldset>
 
           <fieldset>
