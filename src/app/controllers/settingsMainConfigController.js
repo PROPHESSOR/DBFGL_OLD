@@ -2,6 +2,7 @@
   app.controller('settingsMainConfigController', ['$scope', '$mdToast', 'nwService', 'configService', 'modlistService', 'macMouseService', settingsMainConfigController]);
   function settingsMainConfigController($scope, $mdToast, nwService, configService, modlistService, macMouseService) {
 
+
     modlistService.getLists().then(function(list) {
       $scope.modlist = list;
     });
@@ -15,6 +16,10 @@
     }
 
     $scope.editedConfig = angular.copy($scope.config);
+
+    $scope.transformOnChipAdd = function($chip){
+      return $chip.toUpperCase();
+    };
 
     $scope.isMac = function() {
       return process.platform == 'darwin';

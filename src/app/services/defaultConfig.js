@@ -9,6 +9,7 @@
     'screenshotpath': '',
     'wadpath': '',
     'quitonexit': false,
+    'modextensions': ['PK3', 'WAD', 'DEH', 'BEX', 'PK7'],
     'macaccelfix': {
       'enabled': false,
       'desktopRatio': null,
