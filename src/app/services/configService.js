@@ -32,13 +32,16 @@
       );
     };
 
-    service.importSourceports = function(obj) {
-      service.sourceports = _.extend(service.sourceports, obj);
+    service.importSourceports = function(arr) {
+      service.sourceports = service.sourceports.concat(arr);
       service.saveSourceports(service.sourceports);
     };
 
     service.saveConfig = function(obj) {
       var toastDelay = 1500;
+
+      var watcher = nwService.getWatcher();
+      if (watcher) watcher.close();
 
       nwService.writeJSON(sanitize(obj), nwService.buildUserPath('config.json')).then(function() {
         $mdToast.show(
