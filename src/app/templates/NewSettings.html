@@ -58,7 +58,7 @@ $(window).on('resize', function(){
                 <label>Favourite Sourceport</label>
                   <md-select ng-model="editedConfig.misc.preselectedengine" placeholder="Favourite Sourceport" >
                   <md-option value="false">Disable</md-option >
-                  <md-option ng-repeat="sourceport in sourceports" value="{{sourceport.name}}">{{sourceport.name}}</md-option>
+                  <md-option ng-repeat="sourceport in sourceports track by $index" value="{{sourceport.name}}">{{sourceport.name}}</md-option>
                 </md-select>
               </md-input-container>
             </div>
@@ -68,7 +68,7 @@ $(window).on('resize', function(){
                 <label>Select list for Startup</label>
                   <md-select ng-model="editedConfig.initList" placeholder="Select List" ng-disabled="modlist.length === 0">
                   <md-option value="false">Disable</md-option>
-                  <md-option ng-repeat="list in modlist" value="{{list}}">{{list.name}}</md-option>
+                  <md-option ng-repeat="list in modlist track by $index" value="{{list}}">{{list.name}}</md-option>
                 </md-select>
               </md-input-container>
             </div>
@@ -151,7 +151,7 @@ $(window).on('resize', function(){
 
           <md-list-item
             class="md-2-line repeat-animation"
-            ng-repeat="sourceport in sourceports track by $index"
+            ng-repeat="sourceport in editedSourceports track by $index"
             ng-click="selectSourcePort(sourceport)">
 
           <div
@@ -220,6 +220,7 @@ $(window).on('resize', function(){
 
           <div style="text-align:right">
             <md-button
+              ng-click="cancel()"
               class="md-primary md-raised">
               Cancel
             </md-button>

@@ -17,8 +17,10 @@
   };
 
   function settingsSourcePortController($scope, $mdDialog, $mdToast, configService) {
-    if ($scope.sourceports.length > 0) {
-      $scope.selected = $scope.sourceports[0];
+
+    $scope.editedSourceports = angular.copy($scope.sourceports);
+    if ($scope.editedSourceports.length > 0) {
+      $scope.selected = $scope.editedSourceports[0];
     } else {
       $scope.selected = {};
     }
@@ -29,16 +31,21 @@
 
     $scope.addSourcePort = function() {
       var newItem = angular.copy(STUB);
-      $scope.sourceports.push(newItem);
+      $scope.editedSourceports.push(newItem);
       $scope.selected = newItem;
     };
 
     $scope.save = function() {
-      configService.saveSourceports($scope.sourceports);
+      configService.saveSourceports($scope.editedSourceports);
+      $scope.sourceports = angular.copy($scope.editedSourceports);
     };
 
     $scope.cancel = function() {
-
+      $scope.editedSourceports = angular.copy($scope.sourceports);
+      $mdToast.show(
+        $mdToast.simple()
+        .content('Sourceports resetted')
+      );
     };
 
     $scope.delete = function($event, $index) {
@@ -50,9 +57,9 @@
         .targetEvent($event);
 
       $mdDialog.show(confirm).then(function() {
-        console.log($scope.sourceports);
-        $scope.sourceports.splice($index, 1);
-        configService.saveSourceports($scope.sourceports);
+        console.log($scope.editedSourceports);
+        $scope.editedSourceports.splice($index, 1);
+        $scope.save();
       });
     };
   }

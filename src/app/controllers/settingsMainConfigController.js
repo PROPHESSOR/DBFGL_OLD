@@ -26,20 +26,15 @@
 
     $scope.save = function() {
       $scope.config.freshinstall = false;
-
-      var watcher = nwService.getWatcher();
-      if (watcher) watcher.close();
       configService.saveConfig($scope.config);
     };
 
     $scope.cancel = function() {
       $scope.editedConfig = angular.copy($scope.config);
-
       $mdToast.show(
         $mdToast.simple()
         .content('Config resetted')
       );
-
     };
 
     $scope.hasEngine = function() {
