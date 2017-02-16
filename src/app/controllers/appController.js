@@ -40,9 +40,11 @@
    zoomService) {
 
     var $PARENT = $scope;
-
     if ($scope.config.freshinstall === true) {
-      $state.go('settings');
+      setTimeout(function() {
+$state.go('settings');
+      
+      },1000)
     }
 
     zoomService.init();

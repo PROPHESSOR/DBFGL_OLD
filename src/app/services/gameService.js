@@ -103,7 +103,7 @@
         opt.dialog = false;
       }
 
-      if ($rootScope.config.macaccelfix.enabled) {
+      if (process.platform == 'darwin' && $rootScope.config.macaccelfix.enabled) {
         macMouseService.setAccelerationRatio($rootScope.config.macaccelfix.gameRatio);
       }
 
