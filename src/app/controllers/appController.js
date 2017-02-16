@@ -355,7 +355,8 @@
          * @param nwService
          */
           function ConfigDialogController($scope, $mdDialog, nwService) {
-            var saveDir = $PARENT.config.savepaths[engine] + modselectedService.getListname();
+            var saveDir = engine.saves + modselectedService.getListname();
+            
             $scope.engine = engine;
             $scope.iwad = iwad;
             $scope.selectedsave = false;
