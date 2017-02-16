@@ -212,7 +212,7 @@
       if (process.platform !== 'win32') {
         return service.buildPath([osenv.home(), '.ssgl', file]);
       } else {
-        return service.buildPath([osenv.home(), 'SSGL'] , file);
+        return PATH.resolve(osenv.home() + '/SSGL/' + file);
       }
     };
 

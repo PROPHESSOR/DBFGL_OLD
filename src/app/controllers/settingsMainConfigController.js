@@ -2,7 +2,6 @@
   app.controller('settingsMainConfigController', ['$scope', '$mdToast', 'nwService', 'configService', 'modlistService', 'macMouseService', settingsMainConfigController]);
   function settingsMainConfigController($scope, $mdToast, nwService, configService, modlistService, macMouseService) {
 
-
     modlistService.getLists().then(function(list) {
       $scope.modlist = list;
     });
@@ -31,7 +30,8 @@
 
     $scope.save = function() {
       $scope.config.freshinstall = false;
-      configService.saveConfig($scope.config);
+      $scope.config = $scope.editedConfig;
+      configService.saveConfig($scope.editedConfig);
     };
 
     $scope.cancel = function() {

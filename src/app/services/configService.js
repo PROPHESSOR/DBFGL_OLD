@@ -3,7 +3,7 @@
 
   function configService(nwService, DEFAULTCONFIG, $mdToast) {
     var service = {};
-    service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildUserPath('config.json'), false)) || {};
+    service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildUserPath('config.json'), false)) || DEFAULTCONFIG;
     service.sourceports = nwService.readSyncJSON(nwService.buildUserPath('sourceports.json', false)) || [];
 
     function sanitize(obj) {

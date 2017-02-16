@@ -83,7 +83,7 @@ $(window).on('resize', function(){
           <label>Modfile Extensions</label>
           <md-chips ng-model="editedConfig.modextensions" md-removable="true" md-enable-chip-edit="true" md-on-append="transformOnChipAdd($chip)"></md-chips>
           <br />
-          <div layout="row" ng-show="isMac">
+          <div layout="row" ng-show="isMac()">
             <div flex="50">
               <md-checkbox ng-model="editedConfig.macaccelfix.enabled" aria-label="Mac Acceleration Fix">Enable Mouseacceleration Fix</md-checkbox>
             </div>
