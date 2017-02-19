@@ -7,6 +7,7 @@
     saves: '/',
     kind: 'Sorce Port',
     cliParams: {
+      extraFiles: '',
       custom: '',
       iwad: '-iwad',
       loadgame: '-loadgame',

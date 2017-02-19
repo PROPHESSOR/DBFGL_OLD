@@ -61,6 +61,10 @@
         wads.push(opt.map);
       }
 
+      if (opt.engine.cliParams.extraFiles.trim() !== '') {
+        wads = wads.concat(opt.engine.cliParams.extraFiles.trim().split(' '));
+      }
+
       var params = [opt.engine.cliParams.iwad, $rootScope.config.iwadpath + opt.iwad];
 
       if (opt.save !== 'false' && opt.save !== false) {
@@ -68,6 +72,7 @@
       }
 
       if (wads.length > 0) {
+        console.log(wads);
         params = params.concat([opt.engine.cliParams.file], wads);
       }
 

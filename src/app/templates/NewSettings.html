@@ -215,9 +215,15 @@ $(window).on('resize', function(){
 
           <fieldset>
             <md-input-container>
-            <label>Custom Parameters</label>
-            <textarea ng-model="selected.cliParams.custom"></textarea>
-          </md-input-container>
+              <label>Custom Parameters</label>
+              <textarea ng-model="selected.cliParams.custom"></textarea>
+            </md-input-container>
+
+            <md-input-container>
+              <label>Load extra WADs (seperated by space)</label>
+              <textarea ng-model="selected.cliParams.extraFiles"></textarea>
+            </md-input-container>
+
           </fieldset>
 
           <div style="text-align:right">
