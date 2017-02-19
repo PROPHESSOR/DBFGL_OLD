@@ -1,5 +1,5 @@
 (function() {
-  app.controller('settingsSourcePortController', ['$scope', '$mdDialog', '$mdToast', 'configService', settingsSourcePortController]);
+  app.controller('settingsSourcePortController', ['$scope', '$rootScope', '$mdDialog', '$mdToast', 'configService', settingsSourcePortController]);
   var STUB = {
     icon: '',
     name: '',
@@ -16,9 +16,9 @@
     }
   };
 
-  function settingsSourcePortController($scope, $mdDialog, $mdToast, configService) {
+  function settingsSourcePortController($scope, $rootScope, $mdDialog, $mdToast, configService) {
 
-    $scope.editedSourceports = angular.copy($scope.sourceports);
+    $scope.editedSourceports = angular.copy($rootScope.sourceports);
     if ($scope.editedSourceports.length > 0) {
       $scope.selected = $scope.editedSourceports[0];
     } else {
@@ -37,11 +37,11 @@
 
     $scope.save = function() {
       configService.saveSourceports($scope.editedSourceports);
-      $scope.sourceports = angular.copy($scope.editedSourceports);
+      $rootScope.sourceports = angular.copy($scope.editedSourceports);
     };
 
     $scope.cancel = function() {
-      $scope.editedSourceports = angular.copy($scope.sourceports);
+      $scope.editedSourceports = angular.copy($rootScope.sourceports);
       $mdToast.show(
         $mdToast.simple()
         .content('Sourceports resetted')

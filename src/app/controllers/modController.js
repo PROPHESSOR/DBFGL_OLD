@@ -1,5 +1,5 @@
 (function() {
-  app.controller('modController', ['$scope', '$window', 'modService', 'modlistService', '$mdDialog', 'nwService', 'modselectedService', '$mdToast', 'gameLookupService', modController]);
+  app.controller('modController', ['$scope', '$rootScope','$window', 'modService', 'modlistService', '$mdDialog', 'nwService', 'modselectedService', '$mdToast', 'gameLookupService', modController]);
 
     /**
      * Controller for the Mod splitview
@@ -8,7 +8,7 @@
      * @module ssgl
      * @submodule modController
      */
-  function modController($scope, $window, modService, modlistService, $mdDialog, nwService, modselectedService, $mdToast, gameLookupService) {
+  function modController($scope, $rootScope, $window, modService, modlistService, $mdDialog, nwService, modselectedService, $mdToast, gameLookupService) {
     var $parent = $scope;
 
     $scope.selected = modselectedService.reset();
@@ -28,9 +28,9 @@
     });
 
     $scope.$on('watcher.finishedInit', function() {
-      if ($scope.config.initList) {
+      if ($rootScope.config.initList) {
         $scope.selected = modselectedService.get();
-        var list = JSON.parse($scope.config.initList);
+        var list = JSON.parse($rootScope.config.initList);
 
         $scope.selected.list = list.wads;
         $scope.selected.name = list.name;
@@ -77,7 +77,7 @@
     };
 
     $scope.openScreenshots = function(name) {
-      var path = $scope.config.screenshotpath + name;
+      var path = $rootScope.config.screenshotpath + name;
       nwService.mkDir(path);
 
       setTimeout(function() {

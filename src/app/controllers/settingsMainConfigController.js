@@ -1,20 +1,20 @@
 (function() {
-  app.controller('settingsMainConfigController', ['$scope', '$mdToast', 'nwService', 'configService', 'modlistService', 'macMouseService', settingsMainConfigController]);
-  function settingsMainConfigController($scope, $mdToast, nwService, configService, modlistService, macMouseService) {
+  app.controller('settingsMainConfigController', ['$scope', '$rootScope', '$mdToast', 'nwService', 'configService', 'modlistService', 'macMouseService', settingsMainConfigController]);
+  function settingsMainConfigController($scope, $rootScope, $mdToast, nwService, configService, modlistService, macMouseService) {
 
     modlistService.getLists().then(function(list) {
       $scope.modlist = list;
     });
 
     if (process.platform === 'darwin') {
-      if (!$scope.config.macaccelfix.desktopRatio) {
+      if (!$rootScope.config.macaccelfix.desktopRatio) {
         macMouseService.getAccelerationRatio().then(function(ratio) {
-          $scope.config.macaccelfix.desktopRatio = ratio;
+          $rootScope.config.macaccelfix.desktopRatio = ratio;
         });
       }
     }
 
-    $scope.editedConfig = angular.copy($scope.config);
+    $scope.editedConfig = angular.copy($rootScope.config);
 
     $scope.transformOnChipAdd = function($chip){
       return $chip.toUpperCase();
@@ -29,13 +29,13 @@
     };
 
     $scope.save = function() {
-      $scope.config.freshinstall = false;
-      $scope.config = $scope.editedConfig;
+      $rootScope.config.freshinstall = false;
+      $rootScope.config = $scope.editedConfig;
       configService.saveConfig($scope.editedConfig);
     };
 
     $scope.cancel = function() {
-      $scope.editedConfig = angular.copy($scope.config);
+      $scope.editedConfig = angular.copy($rootScope.config);
       $mdToast.show(
         $mdToast.simple()
         .content('Config resetted')
@@ -43,7 +43,7 @@
     };
 
     $scope.hasEngine = function() {
-      return $scope.sourceports.length > 0;
+      return $rootScope.sourceports.length > 0;
     };
   }
 })();

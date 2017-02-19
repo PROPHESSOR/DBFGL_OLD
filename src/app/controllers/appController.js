@@ -1,6 +1,7 @@
 (function() {
   app.controller('appController', [
     '$scope',
+    '$rootScope',
     '$state',
     '$mdDialog',
     '$mdToast',
@@ -25,6 +26,7 @@
    */
   function appController(
    $scope,
+   $rootScope,
    $state,
    $mdDialog,
    $mdToast,
@@ -40,10 +42,9 @@
    zoomService) {
 
     var $PARENT = $scope;
-    if ($scope.config.freshinstall === true) {
+    if ($rootScope.config.freshinstall === true) {
       setTimeout(function() {
-$state.go('settings');
-      
+      $state.go('settings');
       },1000)
     }
 
@@ -95,11 +96,11 @@ $state.go('settings');
    * @method openWADFolder
    */
     $scope.openWADFolder = function() {
-      nwService.getShell().openItem($scope.config.wadpath);
+      nwService.getShell().openItem($rootScope.config.wadpath);
     };
 
     $scope.openScreenshotFolder = function() {
-      nwService.getShell().openItem($scope.config.screenshotpath);
+      nwService.getShell().openItem($rootScope.config.screenshotpath);
     };
 
   /**
@@ -120,7 +121,7 @@ $state.go('settings');
    * @method openOblige
    */
     $scope.openOblige = function() {
-      nwService.getShell().openItem($scope.config.oblige.binary);
+      nwService.getShell().openItem($rootScope.config.oblige.binary);
     };
 
     /**
@@ -131,7 +132,7 @@ $state.go('settings');
      * @method openMultiplayer
      */
     $scope.openMultiplayer = function() {
-      nwService.getShell().openItem($scope.config.online.client);
+      nwService.getShell().openItem($rootScope.config.online.client);
     };
 
   /**
@@ -162,7 +163,7 @@ $state.go('settings');
 
     //#TODO doc
     $scope.hasEngine = function() {
-      return $scope.sourceports.length > 0;
+      return $rootScope.sourceports.length > 0;
     };
 
   /**
@@ -263,11 +264,8 @@ $state.go('settings');
           $scope.iwads = iwads;
         });
 
-      /**
-       * @property config
-       * @type Object
-       */
-        $scope.config = $PARENT.config;
+        // can i has config
+        //$scope.config = $PARENT.config;
 
         $scope.selectEngine = function(engine) {
           $scope.selectedEngine = engine;
@@ -358,7 +356,7 @@ $state.go('settings');
          */
           function ConfigDialogController($scope, $mdDialog, nwService) {
             var saveDir = engine.saves + modselectedService.getListname();
-            
+
             $scope.engine = engine;
             $scope.iwad = iwad;
             $scope.selectedsave = false;
