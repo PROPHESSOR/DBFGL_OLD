@@ -202,7 +202,7 @@
 
     service.getUserDir = function() {
       if (process.platform !== 'win32') {
-        return service.buildPath([osenv.home(), '.ssgl']);
+        return PATH.resolve(osenv.home() + '/.ssgl/');
       } else {
         return PATH.resolve(osenv.home() + '/SSGL/');
       }
@@ -210,7 +210,7 @@
 
     service.buildUserPath = function(file) {
       if (process.platform !== 'win32') {
-        return service.buildPath([osenv.home(), '.ssgl', file]);
+        return PATH.resolve(osenv.home() + '/.ssgl/', file);
       } else {
         return PATH.resolve(osenv.home() + '/SSGL/' + file);
       }
