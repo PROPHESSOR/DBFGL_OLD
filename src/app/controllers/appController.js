@@ -255,7 +255,7 @@
        */
         $scope.useoblige = false;
         $scope.selectedEngine = null;
-        iwadService.getIWADS($PARENT.config.iwadpath).then(function(iwads) {
+        iwadService.getIWADS($rootScope.config.iwadpath).then(function(iwads) {
         /**
          * @property iwads
          * @type {Array}
@@ -265,7 +265,7 @@
         });
 
         // can i has config
-        //$scope.config = $PARENT.config;
+        //$scope.config = $rootScope.config;
 
         $scope.selectEngine = function(engine) {
           $scope.selectedEngine = engine;
@@ -325,7 +325,7 @@
 
             var inp = element[0].querySelector('.fileDialog');
             var btn = element[0].querySelector('#keep');
-            $scope.wadpath = $PARENT.config.wadpath + nwService.pathsep + 'obligebuild.WAD';
+            $scope.wadpath = $rootScope.config.wadpath + nwService.pathsep + 'obligebuild.WAD';
 
 
             btn.addEventListener('click', function() {
@@ -334,7 +334,7 @@
 
             inp.addEventListener('change', function() {
               if (this.value !== '') {
-                nwService.copyFile($PARENT.config.oblige.mappath, this.value);
+                nwService.copyFile($rootScope.config.oblige.mappath, this.value);
 
                 $mdToast.show(
                   $mdToast.simple()
@@ -367,15 +367,15 @@
               $scope.selectedsave = $scope.savegames[0].path;
             });
 
-            nwService.getModifiedDate($PARENT.config.oblige.mappath).then(function(date) {
+            nwService.getModifiedDate($rootScope.config.oblige.mappath).then(function(date) {
               $scope.lastBuilt = date;
             });
 
-            nwService.getDir($PARENT.config.oblige.configs).then(function(files) {
+            nwService.getDir($rootScope.config.oblige.configs).then(function(files) {
               $scope.mapconfigs = files.map(function(cfg) {
                 return {
                   name: cfg,
-                  path: $PARENT.config.oblige.configs + cfg
+                  path: $rootScope.config.oblige.configs + cfg
                 };
               });
 
@@ -436,7 +436,7 @@
                 iwad: iwad,
                 config: $scope.selectedconfig,
                 engine: engine,
-                map: $PARENT.config.oblige.mappath,
+                map: $rootScope.config.oblige.mappath,
                 save: $scope.selectedsave
               });
 
