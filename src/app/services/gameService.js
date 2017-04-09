@@ -61,7 +61,7 @@
         wads.push(opt.map);
       }
 
-      if (opt.engine.cliParams.extraFiles.trim() !== '') {
+      if (opt.engine.cliParams.extraFiles && opt.engine.cliParams.extraFiles.trim() !== '') {
         wads = wads.concat(opt.engine.cliParams.extraFiles.trim().split(' '));
       }
 
@@ -72,7 +72,6 @@
       }
 
       if (wads.length > 0) {
-        console.log(wads);
         params = params.concat([opt.engine.cliParams.file], wads);
       }
 
@@ -134,7 +133,7 @@
         if ($rootScope.config.macaccelfix) {
           macMouseService.setAccelerationRatio($rootScope.config.macaccelfix.desktopRatio);
         }
-        nwService.panic('Enginestarter', 'No Engine to start given', e);
+        nwService.panic('Enginestarter', e.message, e.stack);
       }
     };
 
