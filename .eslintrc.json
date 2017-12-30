@@ -59,7 +59,7 @@
     ],
     "consistent-return": "off",
     "consistent-this": "error",
-    "curly": ["error", "multi", "consistent"],
+    "curly": ["off", "multi", "consistent"],
     "default-case": "error",
     "dot-location": [
       "error",
