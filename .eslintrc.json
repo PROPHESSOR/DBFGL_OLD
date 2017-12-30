@@ -10,7 +10,8 @@
   "globals": {
     "app": true,
     "angular": true,
-    "_": true
+    "_": false,
+    "logger": false
   },
 
   "extends": "eslint:recommended",
