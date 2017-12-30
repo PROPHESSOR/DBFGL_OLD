@@ -5,7 +5,7 @@
  * @requires ngMaterial, ui.router
  * @type {[type]}
  */
-var app = angular.module('dbfgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
+const app = angular.module('dbfgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
 
 (function () {
 	/**
@@ -72,9 +72,9 @@ var app = angular.module('dbfgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
 
 				nwService.livereload(function (file) {
 					if (file && file.split('.').pop() === 'css') {
-						var styles = document.querySelectorAll('link[rel=stylesheet]');
-						for (var i = 0; i < styles.length; i++) {
-							var restyled = styles[i].getAttribute('href') + '?v=' + Math.random(0, 10000);
+						const styles = document.querySelectorAll('link[rel=stylesheet]');
+						for (let i = 0; i < styles.length; i++) {
+							const restyled = styles[i].getAttribute('href') + '?v=' + Math.random(0, 10000);
 							styles[i].setAttribute('href', restyled);
 						}
 					} else {
@@ -83,7 +83,7 @@ var app = angular.module('dbfgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
 				});
 
 			} catch (e) {
-				console.log('Something went wrong');
+				logger.log('Something went wrong');
 			}
 		}
 
