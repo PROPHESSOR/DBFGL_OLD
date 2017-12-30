@@ -1,17 +1,17 @@
 /*
-[============================== AUTOMATIC RELEASE NOTES ==============================]
-|                                                                                     |
-| When starting grunt release dont update the version of the root package.json        |
-| This file is used for automatic updates.                                            |
-|                                                                                     |
-| Edit if after releasing - only update the src/package.json and start your release   |
-| process.                                                                            |
-|                                                                                     |
-| Grunt will open the necessary Websites for editing the root package.json and making |
-| your releasetag.                                                                    |
-|                                                                                     |
-[=====================================================================================]
-*/
+ * [============================== AUTOMATIC RELEASE NOTES ==============================]
+ * |                                                                                     |
+ * | When starting grunt release dont update the version of the root package.json        |
+ * | This file is used for automatic updates.                                            |
+ * |                                                                                     |
+ * | Edit if after releasing - only update the src/package.json and start your release   |
+ * | process.                                                                            |
+ * |                                                                                     |
+ * | Grunt will open the necessary Websites for editing the root package.json and making |
+ * | your releasetag.                                                                    |
+ * |                                                                                     |
+ * [=====================================================================================]
+ */
 
 module.exports = function (grunt) {
 	grunt.initConfig({
@@ -212,17 +212,25 @@ module.exports = function (grunt) {
 			}
 		},
 
-		uglify: {
-			options: {
-				mangle: false
-			},
+		// uglify: {
 
-			build: {
-				files: {
-					'build/pre/app.js': ['build/pre/app.js']
-				}
-			}
-		},
+		// 	options: {
+
+		// 		mangle: false
+
+		// 	},
+
+		// 	build: {
+
+		// 		files: {
+
+		// 			'build/pre/app.js': ['build/pre/app.js']
+
+		// 		}
+
+		// 	}
+
+		// },
 
 		ngtemplates: {
 			app: {
@@ -279,7 +287,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-angular-templates');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
-	grunt.registerTask('build-js', ['ngtemplates', 'concat', 'uglify', 'copy']);
+	grunt.registerTask('build-js', ['ngtemplates', 'concat', /* 'uglify', */ 'copy']);
 
 	grunt.registerTask('build-win', ['build-js', 'nwjs:win']);
 	grunt.registerTask('build-linux', ['build-js', 'nwjs:tux']);
