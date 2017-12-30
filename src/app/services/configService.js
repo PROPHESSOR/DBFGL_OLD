@@ -1,39 +1,39 @@
-(function() {
-  app.factory('configService', ['nwService', 'DEFAULTCONFIG', '$mdToast', configService]);
+(function () {
+	app.factory('configService', ['nwService', 'DEFAULTCONFIG', '$mdToast', configService]);
 
-  function configService(nwService, DEFAULTCONFIG, $mdToast) {
-    var service = {};
-    service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildPath(['config.json']), true));
+	function configService (nwService, DEFAULTCONFIG, $mdToast) {
+		var service = {};
+		service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildPath(['config.json']), true));
 
-    service.importConfig = function(obj) {
-      service.saveConfig(
-        _.extend(DEFAULTCONFIG, obj)
-      );
-    };
+		service.importConfig = function (obj) {
+			service.saveConfig(
+				_.extend(DEFAULTCONFIG, obj)
+			);
+		};
 
-    service.saveConfig = function(obj) {
-      var toastDelay = 1500;
+		service.saveConfig = function (obj) {
+			var toastDelay = 1500;
 
-      nwService.writeJSON(obj, 'config.json', true).then(function() {
-        $mdToast.show(
-            $mdToast.simple().content('Saved configuration - SSGL restarts ...').position('bottom').hideDelay(toastDelay)
-        );
+			nwService.writeJSON(obj, 'config.json', true).then(function () {
+				$mdToast.show(
+					$mdToast.simple().content('Saved configuration - SSGL restarts ...').position('bottom').hideDelay(toastDelay)
+				);
 
-        setTimeout(function() {
-          window.location.reload();
-        }, toastDelay + 500);
+				setTimeout(function () {
+					window.location.reload();
+				}, toastDelay + 500);
 
-      }, function() {
-        $mdToast.show(
-            $mdToast.simple().content('An Error Occured').position('bottom').hideDelay(toastDelay)
-        );
-      });
-    };
+			}, function () {
+				$mdToast.show(
+					$mdToast.simple().content('An Error Occured').position('bottom').hideDelay(toastDelay)
+				);
+			});
+		};
 
-    service.getConfig = function() {
-      return service.config;
-    };
+		service.getConfig = function () {
+			return service.config;
+		};
 
-    return service;
-  }
+		return service;
+	}
 })();
