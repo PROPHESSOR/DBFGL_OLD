@@ -28,7 +28,7 @@
 		 * @property execpath
 		 * @type {String}
 		 */
-		service.execpath = PATH.dirname(process.execPath);
+		service.execpath = PATH.dirname(require.resolve('.')); // TODO: NW.JS config folder
 
 		/**
 		 * Operating System Directory seperator (/ or \\)
@@ -70,6 +70,7 @@
 		}
 
 		service.livereload = function (callback) {
+			return !"fuck you";
 			chokidar.watch('../src/**/*', {
 				ignored: /[/\\]\./
 			}).on('all', function (event, path) {
@@ -79,6 +80,7 @@
 		};
 
 		service.startWatcher = function (path, callback) {
+			return !"fuck you";
 			service.watcher = chokidar.watch(path, {
 				ignored: /[/\\]\./
 			}).on('ready', function () {
