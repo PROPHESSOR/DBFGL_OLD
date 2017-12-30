@@ -1,11 +1,12 @@
 (function () {
-	var PATH = require('path'),
-			FS = require('fs'),
-			GUI = require('nw.gui'),
-			os = require('os'),
-			chokidar = require('chokidar'),
-			md5File = require('md5-file'),
-			Window = GUI.Window.get();
+	const PATH = require('path');
+	const FS = require('fs');
+	const GUI = require('nw.gui');
+	const os = require('os');
+	const chokidar = require('chokidar');
+	const md5File = require('md5-file');
+
+	const _Window = GUI.Window.get();
 
 	app.factory('nwService', ['$q', '$rootScope', '$mdDialog', nwService]);
 	/**
@@ -17,7 +18,7 @@
 	 * @param  {Object}  $q Async
 	 */
 	function nwService ($q, $rootScope, $mdDialog) {
-		var service = {};
+		const service = {};
 
 		// #TODO: doc
 		service.watcher = null;
@@ -157,7 +158,7 @@
 			if (typeof cut === 'undefined') cut = -5;
 
 
-			if (os.platform() === 'win32') return path.replace(/^.*[\\\/]/, '').slice(0, cut);
+			if (os.platform() === 'win32') return path.replace(/^.*[\\/]/, '').slice(0, cut);
 
 
 			return path.replace(/^.*[/]/, '').slice(0, cut);
@@ -169,7 +170,7 @@
 		 * TODO: Error handling
 		 */
 		service.getModifiedDate = function (file) {
-			var def = $q.defer();
+			const def = $q.defer();
 
 			if (!FS.lstatSync(file).isFile()) def.resolve(null);
 
@@ -191,7 +192,7 @@
 
 		// #TODO doc
 		service.registerMenu = function () {
-			var mb = new GUI.Menu({
+			const mb = new GUI.Menu({
 				type: 'menubar'
 			});
 			mb.createMacBuiltin('SSGL', {
@@ -214,8 +215,7 @@
 		service.buildPath = function (array, execpath) {
 			if (execpath) array.unshift(service.execpath);
 
-
-			return PATH.join.apply(this, array);
+			return Reflect.apply(PATH.join, this, array);
 		};
 
 		/**
@@ -274,7 +274,7 @@
 		 * @return {Promise}
 		 */
 		service.rename = function (oldpath, newpath) {
-			var def = $q.defer();
+			const def = $q.defer();
 			FS.rename(oldpath, newpath, function (err) {
 				if (err) def.reject(err);
 				else def.resolve(service.getName(newpath));
@@ -293,7 +293,7 @@
 		 * @return {Promise}
 		 */
 		service.remove = function (path) {
-			var def = $q.defer();
+			const def = $q.defer();
 
 			FS.unlink(path, function (err) {
 				if (err) def.reject(err);
@@ -315,8 +315,8 @@
 
 			FS.readdir(path, function (err, fileArr) {
 				if (err) throw err;
-				for (var i = fileArr.length; i--;) {
-					var full = service.buildPath([path, fileArr[i]], false);
+				for (let i = fileArr.length; i--;) {
+					const full = service.buildPath([path, fileArr[i]], false);
 					FS.unlinkSync(full);
 				}
 			});
@@ -335,16 +335,16 @@
 		 * @return {Promise} obj with name, path, date
 		 */
 		service.getDirWithDate = function (path) {
-			var def = $q.defer();
-			var files = [];
+			const def = $q.defer();
+			const files = [];
 
 			FS.readdir(path, function (err, fileArr) {
 				if (err) {
 					def.resolve([]);
 				} else {
-					for (var i = fileArr.length; i--;) {
-						var full = service.buildPath([path, fileArr[i]], false);
-						var stat = FS.statSync(full);
+					for (let i = fileArr.length; i--;) {
+						const full = service.buildPath([path, fileArr[i]], false);
+						const stat = FS.statSync(full);
 
 						if (err) console.log(err);
 
@@ -374,7 +374,7 @@
 		 * @return {Promise}
 		 */
 		service.getDir = function (path) {
-			var def = $q.defer();
+			const def = $q.defer();
 			FS.readdir(path, function (err, fileArr) {
 				if (err) {
 					def.reject(err);
@@ -394,7 +394,7 @@
 
 		// #TODO Docs
 		service.getWindow = function () {
-			return Window;
+			return _Window;
 		};
 
 		/**
@@ -416,9 +416,9 @@
 		 * @return {Boolean} True when started with Argument
 		 */
 		service.hasArg = function (arg) {
-			var len = GUI.App.argv.length;
+			const len = GUI.App.argv.length;
 
-			for (var i = 0; i < len; i++) if (GUI.App.argv[i] === arg) return true;
+			for (let i = 0; i < len; i++) if (GUI.App.argv[i] === arg) return true;
 
 
 			return false;
@@ -490,7 +490,7 @@
 		 * @return {Promise}
 		 */
 		service.readJSON = function (path, enc) {
-			var def = $q.defer();
+			const def = $q.defer();
 			if (typeof enc === 'undefined') enc = 'utf8';
 
 
@@ -518,7 +518,7 @@
 		 * @return {Promise}
 		 */
 		service.writeTxt = function (content, path, relative) {
-			var def = $q.defer();
+			const def = $q.defer();
 			path = _checkRel(path, relative);
 
 			FS.writeFile(path, content, function (err) {
@@ -542,7 +542,7 @@
 		 * @return {Promise}
 		 */
 		service.writeJSON = function (givenObject, path, relative) {
-			var def = $q.defer();
+			const def = $q.defer();
 			path = _checkRel(path, relative);
 
 			FS.writeFile(path, JSON.stringify(givenObject, null, 4), function (err) {

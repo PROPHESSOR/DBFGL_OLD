@@ -2,7 +2,7 @@
 	app.factory('configService', ['nwService', 'DEFAULTCONFIG', '$mdToast', configService]);
 
 	function configService (nwService, DEFAULTCONFIG, $mdToast) {
-		var service = {};
+		const service = {};
 		service.config = angular.merge({}, DEFAULTCONFIG, nwService.readSyncJSON(nwService.buildPath(['config.json']), true));
 
 		service.importConfig = function (obj) {
@@ -12,7 +12,7 @@
 		};
 
 		service.saveConfig = function (obj) {
-			var toastDelay = 1500;
+			const toastDelay = 1500;
 
 			nwService.writeJSON(obj, 'config.json', true).then(function () {
 				$mdToast.show(
