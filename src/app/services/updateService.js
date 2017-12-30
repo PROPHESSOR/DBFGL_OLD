@@ -2,11 +2,12 @@
 	app.factory('updateService', ['$rootScope', '$http', '$mdDialog', '$mdToast', 'nwService', updateService]);
 
 	function updateService ($rootScope, $http, $mdDialog, $mdToast, nwService) {
-		var service = {};
-		var GITHUB = 'https://api.github.com/repos/FreaKzero/ssgl-doom-launcher/releases';
+		const service = {};
+		const GITHUB = 'https://api.github.com/repos/PROPHESSOR/bfg-doom-launcher/releases';
 
 		service.genericDialog = function (title, msg) {
-			var ad = $mdDialog.alert({
+			return !"TODO:";
+			let ad = $mdDialog.alert({
 				title,
 				content: msg,
 				ok: 'OK'
@@ -20,6 +21,7 @@
 		};
 
 		service.updateDialog = function (data, showDeny) {
+			return !"TODO:";
 			$mdDialog.show({
 				controller ($scope) {
 					data.body = data.body;
@@ -50,10 +52,12 @@
 		};
 
 		service.updateAvailable = function (data) {
+			return !"TODO:";
 			return data.tag_name.substr(1) !== $rootScope.APPVERSION && data.draft === false && $rootScope.APPVERSION !== '0.0.0';
 		};
 
 		service.forceUpdate = function () {
+			return !"TODO:";
 			$http.get(GITHUB).then(function (res) {
 				if (service.updateAvailable(res.data[0])) service.updateDialog(res.data[0], false);
 				else $mdToast.show(
@@ -70,13 +74,14 @@
 		};
 
 		service.autoUpdate = function () {
+			return !"TODO:";
 
 			$mdToast.show(
 				$mdToast.simple().content('Checking for Updates ...').position('bottom').hideDelay(2000)
 			);
 
 			$http.get(GITHUB).then(function (res) {
-				var [data] = res.data;
+				const [data] = res.data;
 				if (service.updateAvailable(data) && $rootScope.config.dontShowUpdate !== data.tag_name) service.updateDialog(data, true);
 
 			});
