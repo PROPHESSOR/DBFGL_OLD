@@ -1,8 +1,8 @@
 {
-  "name": "SSGL",
-  "description": "Doom Frontend with Oblige mapbuild integration for zdoom, gzDoom, Skulltag and Zandronum written in AngularMaterial on NWJS for Windows and Linux.",
+  "name": "DBFGL",
+  "description": "It's a DooM Launcher.",
   "version": "0.0.2",
-  "homepage": "https://github.com/FreaKzero/ssgl-doom-launcher",
+  "homepage": "https://github.com/PROPHESSOR/DooM-BFG-Launcher",
   "license": "MIT",
   "private": true,
   "dependencies": {

@@ -1,5 +1,5 @@
 {
-    "name": "SSGL",
+    "name": "dbfgl",
     "version": "1.1.1",
     "main": "index.html",
     "window": {
@@ -8,10 +8,10 @@
         "width": 1000,
         "height": 650,
         "resizable": true,
-        "title" : "Super Shotgun Launcher (loading...)"
+        "title": "Загрузка..."
     },
-     "devDependencies": {
-      "chokidar": "1.6.1",
-      "md5-file": "2.0.4"
-  	}
+    "devDependencies": {
+        "chokidar": "1.6.1",
+        "md5-file": "2.0.4"
+    }
 }
