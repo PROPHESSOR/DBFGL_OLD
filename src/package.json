@@ -8,7 +8,7 @@
         "width": 1000,
         "height": 650,
         "resizable": true,
-        "title": "Загрузка..."
+        "title": "DBFGL"
     },
     "devDependencies": {
         "chokidar": "1.6.1",

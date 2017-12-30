@@ -1,7 +1,7 @@
 /**
- * SSGL Launcher
+ * DooM BFG Launcher
  *
- * @class ssgl
+ * @class dbfgl
  * @requires ngMaterial, ui.router
  * @type {[type]}
  */
@@ -61,7 +61,7 @@ var app = angular.module('dbfgl', ['ngMaterial', 'ui.router', 'cfp.hotkeys']);
 		 * @type {String}
 		 */
 		$rootScope.APPVERSION = nwService.readSyncJSON('package.json').version;
-		document.title = 'Super Shotgun Launcher v' + $rootScope.APPVERSION;
+		document.title = 'DooM BFG Launcher v' + $rootScope.APPVERSION;
 
 		if (process.platform === 'darwin') {
 			nwService.registerMenu();
