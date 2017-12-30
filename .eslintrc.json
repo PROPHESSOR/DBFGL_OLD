@@ -1,4 +1,4 @@
-module.exports = {
+{
     "env": {
         "browser": true,
         "node": true
@@ -14,7 +14,9 @@ module.exports = {
     "rules": {
 
         "no-console": [
-            "error", { allow: ["log", "warn", "error"] }
+            "error", { 
+                "allow": ["log", "warn", "error"]
+            }
         ], 
         "indent": [
             "error",
@@ -33,4 +35,4 @@ module.exports = {
             "always"
         ]
     }
-};
+}
