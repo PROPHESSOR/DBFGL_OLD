@@ -1,28 +1,28 @@
 (function () {
 
-	var {execFile} = require('child_process');
+	const {execFile} = require('child_process');
 	app.factory('gameService', ['$q', '$rootScope', '$mdDialog', 'modselectedService', 'nwService', gameService]);
 
 	/**
-     * Service for Starting Engines/Oblige
-     *
-     * @method gameService
-     * @module ssgl
-     * @submodule gameService
-     */
+	 * Service for Starting Engines/Oblige
+	 *
+	 * @method gameService
+	 * @module ssgl
+	 * @submodule gameService
+	 */
 	function gameService ($q, $rootScope, $mdDialog, modselectedService, nwService) {
 
 		/**
-         * Ensures loadorder for Doom RPG wads
-         *
-         * @method _prepareDoomRPG
-         * @param  {array} array of user doom wads
-         * @return {array} array with doomrpg wads (right loadorder) mixed with user wads
-         */
+		 * Ensures loadorder for Doom RPG wads
+		 *
+		 * @method _prepareDoomRPG
+		 * @param  {array} array of user doom wads
+		 * @return {array} array with doomrpg wads (right loadorder) mixed with user wads
+		 */
 
 		// TODO document the statements
 		function _prepareDoomRPG (wads) {
-			var rpgwads = [];
+			const rpgwads = [];
 
 			if ($rootScope.config.active.doomrpgrl) {
 				rpgwads.push($rootScope.config.misc.doomrpg.rlarsenalwad);
@@ -56,25 +56,25 @@
 		}
 
 		/**
-         * Builds Params for different Engines
-         *
-         * TODO: investigate if setvars is also practical for other instances
-         *
-         * @method _paramBuilder
-         * @for gameService
-         * @param  {Object}  iwad,config,engine,map
-         * @return {String} Parameters for Engines
-         * @private
-         */
+		 * Builds Params for different Engines
+		 *
+		 * TODO: investigate if setvars is also practical for other instances
+		 *
+		 * @method _paramBuilder
+		 * @for gameService
+		 * @param  {Object}  iwad,config,engine,map
+		 * @return {String} Parameters for Engines
+		 * @private
+		 */
 		function _paramBuilder (opt) {
-			var wads = modselectedService.getPathsFILE(),
+			let wads = modselectedService.getPathsFILE(),
 					dehs = modselectedService.getPathsDEH();
 
 			if (opt.map !== false) {
 				wads.push(opt.map);
 			}
 
-			var params = ['-iwad', $rootScope.config.iwadpath + opt.iwad];
+			let params = ['-iwad', $rootScope.config.iwadpath + opt.iwad];
 
 			// For Doom64EX you need an extra soundfile
 			if (opt.engine === 'doom64ex') {
@@ -102,15 +102,15 @@
 			return params;
 		}
 
-		var service = {};
+		const service = {};
 
 		/**
-         * Starts given Engine as childprocess
-         *
-         * @method startDoom
-         * @for gameService
-         * @param  {Object}  iwad,config,engine,map,save
-         */
+		 * Starts given Engine as childprocess
+		 *
+		 * @method startDoom
+		 * @for gameService
+		 * @param  {Object}  iwad,config,engine,map,save
+		 */
 		service.startDoom = function (opt) {
 			if (typeof opt.map === 'undefined' || opt.map === null) {
 				opt.map = false;
@@ -120,7 +120,7 @@
 				opt.dialog = false;
 			}
 
-			var useEngine = $rootScope.config.engines[opt.engine];
+			const useEngine = $rootScope.config.engines[opt.engine];
 
 			try {
 				execFile(useEngine, _paramBuilder(opt), function (error) {
@@ -134,13 +134,13 @@
 		};
 
 		/**
-         * Starts Oblige Mapbuilder as childprocess in the background
-         * When Oblige is finished - startDoom with the map parameter
-         *
-         * @method startOblige
-         * @for gameService
-         * @param  {Object} iwad, config, engine,save
-         */
+		 * Starts Oblige Mapbuilder as childprocess in the background
+		 * When Oblige is finished - startDoom with the map parameter
+		 *
+		 * @method startOblige
+		 * @for gameService
+		 * @param  {Object} iwad, config, engine,save
+		 */
 		service.startOblige = function (opt) {
 
 			$mdDialog.show({
@@ -152,9 +152,9 @@
 			});
 
 			opt.map = $rootScope.config.oblige.mappath;
-			var params = ['--batch', $rootScope.config.oblige.mappath, '--load', opt.config];
+			const params = ['--batch', $rootScope.config.oblige.mappath, '--load', opt.config];
 
-			var child = execFile($rootScope.config.oblige.binary, params, function (error, stdout, stderr) {
+			const child = execFile($rootScope.config.oblige.binary, params, function (error, stdout, stderr) {
 				if (error) {
 					nwService.panic(
 						'Obligestarter',

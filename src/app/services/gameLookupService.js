@@ -1,16 +1,16 @@
 (function () {
 
-	var http = require('http');
+	const http = require('http');
 
 	app.factory('gameLookupService', ['$q', 'nwService', '$rootScope', gameLookupService]);
 
 	function gameLookupService ($q, nwService, $rootScope) {
-		var service = {};
+		const service = {};
 
 		// #TODO doc
 		service.lookupLocal = function (mod) {
-			var screens = [],
-					def = $q.defer();
+			let screens = []; // FIXME: Зачем?
+			const def = $q.defer();
 
 			nwService.getDir($rootScope.config.screenshotpath).then(function (dirs) {
 				if (dirs.indexOf(mod.name) > -1) {
@@ -37,9 +37,9 @@
 
 		// #TODO doc
 		service.lookupWadArchive = function (path) {
-			var md5 = nwService.md5File(path);
-			var def = $q.defer();
-			var screens = [];
+			const md5 = nwService.md5File(path);
+			const def = $q.defer();
+			const screens = [];
 
 
 			http.get({
@@ -47,7 +47,7 @@
 				path: '/api/latest/' + md5
 			}, function (response) {
 
-				var body = '';
+				let body = '';
 
 				if (response.statusCode !== 200) {
 					def.reject();
@@ -62,8 +62,8 @@
 				});
 
 				response.on('end', function () {
-					var data = JSON.parse(body);
-					for (var index in data.screenshots) {
+					const data = JSON.parse(body);
+					for (const index in data.screenshots) {
 						screens.push({
 							pic: data.screenshots[index],
 							name: index
