@@ -3,7 +3,7 @@
 	const FS = require('fs');
 	const GUI = require('nw.gui');
 	const os = require('os');
-	const chokidar = require('chokidar');
+	const chokidar = require('chokidar'); // FIXME: На linux сыпет херову тучу ошибок
 	const md5File = require('md5-file');
 
 	const _Window = GUI.Window.get();

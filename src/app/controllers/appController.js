@@ -523,7 +523,7 @@
 				 */
 				$scope.save = function () {
 					$scope.config.freshinstall = false;
-					nwService.getWatcher().close();
+					// nwService.getWatcher().close();
 					configService.saveConfig($scope.config);
 					$mdDialog.cancel();
 				};
