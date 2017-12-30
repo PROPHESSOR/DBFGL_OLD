@@ -63,12 +63,8 @@
 		 * @return {String} gives back absolute path when path is relative
 		 * @private
 		 */
-		function _checkRel (path, relative) {
-			if (typeof relative === 'undefined') relative = false;
-
-
-			if (relative === true) path = service.execpath + service.pathsep + path;
-
+		function _checkRel (path, relative = false) {
+			if (relative) path = service.execpath + service.pathsep + path;
 
 			return path;
 		}
@@ -402,7 +398,7 @@
 		 *
 		 * @method getShell
 		 * @for nwService
-		 * @return {Object}
+		 * @return {Object} .
 		 */
 		service.getShell = function () {
 			return GUI.Shell;
@@ -471,6 +467,7 @@
 		 */
 		service.readSyncJSON = function (path, relative) {
 			path = _checkRel(path, relative);
+			logger.log(`readSyncJSON(${path}, ...)`);
 			try {
 				return JSON.parse(FS.readFileSync(path, 'utf8'));
 			} catch (e) {
@@ -489,18 +486,18 @@
 		 * @param  {String} enc  encoding, default utf8
 		 * @return {Promise}
 		 */
-		service.readJSON = function (path, enc) {
-			const def = $q.defer();
-			if (typeof enc === 'undefined') enc = 'utf8';
+		service.readJSON = function (path, enc = 'utf8') {
+			logger.log(`readJSON(${path}, ...)`);
 
+			const def = $q.defer();
 
 			FS.readFile(path, enc, function (err, data) {
-				if (err) def.reject(err);
-				else try {
+				if (err) return def.reject(err);
+				try {
 					def.resolve(JSON.parse(data));
 				} catch (eerr) {
-						def.reject(eerr);
-					}
+					def.reject(eerr);
+				}
 
 			});
 
@@ -522,9 +519,7 @@
 			path = _checkRel(path, relative);
 
 			FS.writeFile(path, content, function (err) {
-				if (err) def.reject(err);
-				else def.resolve();
-
+				return err ? def.reject(err) : def.resolve();
 			});
 
 			return def.promise;
@@ -542,12 +537,12 @@
 		 * @return {Promise}
 		 */
 		service.writeJSON = function (givenObject, path, relative) {
+			logger.log(`writeJSON(..., ${path}, ...)`);
 			const def = $q.defer();
 			path = _checkRel(path, relative);
 
 			FS.writeFile(path, JSON.stringify(givenObject, null, 4), function (err) {
-				if (err) def.reject(err);
-				else def.resolve(service.getName(path));
+				return err ? def.reject(err) : def.resolve(service.getName(path));
 
 			});
 
