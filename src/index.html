@@ -1,111 +1,72 @@
 <!DOCTYPE html>
-<html lang="en" >
-    <head>
-        <title>Загрузка...</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <link rel="stylesheet" href="app/font/roboto-webfont.css">
-        <link rel="stylesheet" href="app/lib/angular-material/angular-material.css"/>
-        <link rel="stylesheet" href="app/assets/custom.css"/>
-        <link rel="stylesheet" href="app/assets/custom.shortcuts.css" />
-        <link rel="stylesheet" href="app/lib/angular-hotkeys/build/hotkeys.min.css" />
-        <script type="text/javascript" src="app/lib/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="app/lib/jquery-slimscroll/jquery.slimscroll.js"></script>
+<html lang="en">
 
-        <script src="app/lib/underscore/underscore.js"></script>
-        <script src="app/lib/angular/angular.js"></script>
-        <script src="app/lib/angular-animate/angular-animate.js"></script>
-        <script src="app/lib/angular-aria/angular-aria.js"></script>
-        <script src="app/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
-        <script type="text/javascript" src="app/lib/angular-material/angular-material.js"></script>
-        <script type="text/javascript" src="app/lib/angular-hotkeys/build/hotkeys.min.js"></script>
-        <script src="app/lib/logger.js"></script>
-        <script src="app.js"></script>
+<head>
+    <title>Загрузка...</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <!-- <link rel="stylesheet" href="app/font/roboto-webfont.css"> -->
+    <!-- <link rel="stylesheet" href="app/lib/angular-material/angular-material.css" /> -->
+    <!-- <link rel="stylesheet" href="app/assets/custom.css" /> -->
+    <!-- <link rel="stylesheet" href="app/assets/custom.shortcuts.css" /> -->
+    <!-- <link rel="stylesheet" href="app/lib/angular-hotkeys/build/hotkeys.min.css" /> -->
+    <script type="text/javascript" src="app/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <script type="text/javascript" src="app/lib/jquery-slimscroll/jquery.slimscroll.js"></script> -->
 
-        <link href="app/lib/mdi/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- <script src="app/lib/underscore/underscore.js"></script> -->
+    <!-- <script src="app/lib/angular/angular.js"></script> -->
+    <!-- <script src="app/lib/angular-animate/angular-animate.js"></script> -->
+    <!-- <script src="app/lib/angular-aria/angular-aria.js"></script> -->
+    <!-- <script src="app/lib/angular-ui-router/release/angular-ui-router.min.js"></script> -->
+    <!-- <script type="text/javascript" src="app/lib/angular-material/angular-material.js"></script> -->
+    <!-- <script type="text/javascript" src="app/lib/angular-hotkeys/build/hotkeys.min.js"></script> -->
+    <script src="app/lib/logger.js"></script>
+    <script src="index.js"></script>
 
-    </head>
-    <body ng-app="dbfgl" layout="column" ng-controller="appController" id="app">
-        <md-toolbar layout="row">
-        <div class="md-toolbar-tools">
-            <md-button aria-label="Open Modlists" style="min-width: 50px;margin:0 0 0 -10px;;" ng-click="toggleSidebar()"><i class="mdi mdi-menu" style="font-size: 35px; margin-top: 8px;"></i></md-button>
-            <h1 style="margin-left: 10px;">Super Shotgun Launcher</h1>
-        </div>
+    <link href="app/lib/mdi/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
 
-        <md-button ng-show="DEVELOPER" aria-label="Open DevTools" style="min-width: 50px;margin:0;" ng-click="openDevTools()"><i class="mdi mdi-code-not-equal-variant" style="font-size: 35px; margin-top: 8px;"><md-tooltip>Open DevTools (F12)</md-tooltip></i></md-button>
+</head>
 
-        <md-button ng-show="config.active.oblige" aria-label="Open Oblige" style="min-width: 50px;margin:0;" ng-click="openOblige()"><i class="mdi mdi-map" style="font-size: 35px; margin-top: 8px;"><md-tooltip>Open Oblige</md-tooltip></i></md-button>
+<body id="app">
+    <header class="pure-g bg-red">
+        <h1 class="pure-u-1">DooM BFG Launcher</h1>
+    </header>
+    <div class="pure-g">
+        <aside class="pure-u-1-5 bg-green">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">Single</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">Multiplayer</a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">Settings</a>
+                </li>
+            </ul>
+        </aside>
 
-        <md-button ng-show="config.online.client && config.online.client !== ''" aria-label="Open Multiplayer Client" style="min-width: 50px;margin:0;" ng-click="openMultiplayer()"><i class="mdi mdi-server-network" style="font-size: 35px; margin-top: 8px;"><md-tooltip>Open Doomseeker</md-tooltip></i></md-button>
-
-        <md-menu>
-          <md-button aria-label="Open Menu" class="md-icon-button" style="padding:0;margin:0 0 0 0;" ng-click="openMenu($mdOpenMenu, $event)">
-            <i class="mdi mdi-dots-vertical" style="font-size: 35px; margin-top: 8px;"></i>
-          </md-button>
-
-          <md-menu-content width="6">
-            <md-menu-item>
-            <md-button ng-click="openWADFolder()">Open WAD Folder</md-button>
-            </md-menu-item>
-
-            <md-menu-item>
-            <md-button ng-click="showSettings($event)">Settings</md-button>
-            </md-menu-item>
-
-            <md-menu-item>
-                <md-button ng-click="reload()">Restart App</md-button>
-            </md-menu-item>
-
-            <md-menu-item>
-                <md-button ng-click="forceUpdate()">Check for Updates</md-button>
-            </md-menu-item>
-
-            <md-menu-item ng-click="showAboutDialog($event)">
-                <md-button>About</md-button>
-            </md-menu-item>
-
-          </md-menu-content>
-
-        </md-menu>
-
-        </md-toolbar>
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2 dark" md-component-id="left">
-            <md-toolbar>
-                <h1 class="md-toolbar-tools">Saved Lists</h1>
-            </md-toolbar>
-
-            <md-content ng-controller="modlistController">
-
-            <md-list>
-                <md-list-item class="md-2-line repeat-animation" ng-repeat="list in modlist" md-ink-ripple>
-                <div class="md-list-item-text">
-                    <p>{{ list.name }}</p>
-                </div>
-                <div class="md-secondary">
-
-                    <i class="mdi mdi-briefcase-check" ng-click="selectList($index)" style="color:white;margin-top: 3px;margin-right: 3px;"><md-tooltip>Use List</md-tooltip></i>
-                    <i class="mdi mdi-rename-box" ng-click="rename($event, $index)" style="color:white;margin-top: 3px;"><md-tooltip>Rename List</md-tooltip></i>
-                    <i class="mdi mdi-delete" ng-click="delete($event, $index)" style="color:white;margin-top: 3px;"><md-tooltip>Delete List</md-tooltip></i>
-                </div>
-                </md-list-item>
-                </md-list>
-
-            </md-content>
-        </md-sidenav>
+        <main class="pure-u-4-5 bg-blue">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item">
+                    <a href="#" class="pure-menu-link">Single</a>
+                </li>
+            </ul>
+        </main>
 
 
-        <div ui-view></div>
-        <script type="text/javascript">
+        <footer class="pure-g">
+            <!-- <div class="pure-u-1-5">----</div> -->
+            <div class="pure-u-4-5 bg-red">qwe</div>
+        </footer>
+    </div>
+    <div ui-view></div>
+    <script type="text/javascript">
+    </script>
+</body>
 
-            $(document).ready(function() {
-
-                setTimeout(function() {
-                    $('#app').addClass('show');
-                },100);
-
-            });
-        </script>
-    </body>
 </html>
