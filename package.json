@@ -4,5 +4,8 @@
     "description": "It's a DooM launcher.",
     "homepage": "https://github.com/PROPHESSOR/doom-bfg-launcher",
     "releaseDownload": "https://github.com/PROPHESSOR/doom-bfg-launcher/releases",
-    "license": "MIT"
+    "license": "MIT",
+    "dependencies": {
+        "chalk": "^2.3.0"
+    }
 }
