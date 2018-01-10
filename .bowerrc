@@ -1,7 +1,0 @@
-{
-  "directory": "src/app/lib",
-  "scripts": {
-    "preinstall": "npm install",
-    "postinstall": "grunt init"
-  }
-}

@@ -76,8 +76,7 @@ Enable Live Reloading on HTML/CSS/JS changes in the /src folder
 ##Building Docs  
 ```grunt yuidoc``` generates Code documentation into ./docs (its in .gitignore)  
 *Not all Documented yet*  
-    
-![Thx4BetaTest](https://github.com/FreaKzero/ssgl-doom-launcher/blob/master/readme/beta.jpg)  
+### Beta testers
 [Serasar](https://github.com/Serasar)  
 [axed](https://github.com/axed)  
 [scar45](https://github.com/scar45)  
